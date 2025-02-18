@@ -1,0 +1,79 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+    h2 {
+        @apply font-montserrat;
+    }
+
+    h1 {
+        @apply font-merriweather;
+    }
+
+    .menu-active > span:nth-child(1) {
+        @apply rotate-[32deg];
+    }
+
+    .menu-active > span:nth-child(2) {
+        @apply scale-0;
+    }
+
+    .menu-active > span:nth-child(3) {
+        @apply -rotate-[32deg];
+    }
+
+    .menu-item {
+        @apply w-[28px] h-[2px] my-[5px] block bg-dark rounded transition-all;
+    }
+
+    .follow-item {
+        @apply flex items-center justify-center border-[1.5px] border-primary w-7 h-7 lg:w-9 lg:h-9 rounded-full primary-color-hover;
+    }
+
+    .text-responsive {
+        @apply text-center lg:text-start;
+    }
+
+    .primary-color-hover {
+        @apply text-dark hover:bg-primary hover:text-white transition duration-500;
+    }
+
+    .responsive-scale {
+        @apply md:scale-[1.1] lg:scale-[1.2] xl:scale-[1.3] 2xl:scale-[1.4];
+    }
+
+    .navbar-items {
+        @apply text-base text-dark py-2 mx-8 flex group-hover:text-primary;
+    }
+
+    .show-navbar-text {
+        @apply font-montserrat font-medium lg:text-base xl:text-lg;
+    }
+}
+
+.circle {
+    @apply w-5 h-5 bg-primary rounded-full border-4 border-white relative z-10;
+}
+
+.icon-carier {
+    @apply min-h-12 min-w-12 flex bg-primary text-white rounded-full items-center justify-center;
+}
+
+.carier-card {
+    @apply bg-white py-5 pl-4 pr-6 shadow-lg rounded-2xl w-full;
+}
+
+.marker {
+    @apply before:absolute before:left-0 before:top-1/2 before:-translate-y-1/2 before:w-2 before:h-2 before:bg-gray-500 before:rounded-full;
+}
+
+.navbar-fixed {
+    @apply fixed z-50 bg-white opacity-95;
+    backdrop-filter: blur[20px];
+    box-shadow: inset 0 -1px 0 0 rgba(0, 0, 0, 0.1);
+}
+
+.skill-card {
+    @apply bg-white p-5 shadow-lg rounded-xl transition-transform duration-500 hover:-translate-y-2 hover:shadow-xl h-full 2xl:max-w-sm;
+}
