@@ -53,7 +53,7 @@ class OrderController extends Controller
                 'status' => 403,
                 'message' => 'Errors in Exception',
                 'errors' => $ex->getMessage(),
-            ], 403);
+            ], 200);
         }
     }
 
@@ -97,7 +97,7 @@ class OrderController extends Controller
                 'status' => 403,
                 'message' => 'Erros in Exception',
                 'errors' => $ex->getMessage(),
-            ], 403);
+            ], 200);
         }
     }
 
@@ -115,7 +115,7 @@ class OrderController extends Controller
                 'status' => 403,
                 'message' => 'Errors in Exception',
                 'errors' => $ex->getMessage(),
-            ], 403);
+            ], 200);
         }
     }
 
@@ -155,7 +155,7 @@ class OrderController extends Controller
                 'status' => 403,
                 'message' => 'Errors in Exception',
                 'errors' => $ex->getMessage(),
-            ], 403);
+            ], 200);
         }
     }
 

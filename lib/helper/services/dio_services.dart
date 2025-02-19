@@ -11,9 +11,9 @@ class DioServices extends GetxService {
   static final url = FlavorConfig.instance.variables['baseUrl'];
   factory DioServices() => dioServices;
 
-  static const int timeOut = 10000;
+  static const Duration timeOut = Duration(seconds: 1000);
   static Dio call({
-    int timeOut = timeOut,
+    Duration timeOut = timeOut,
     String? bearerToken,
     String? authorization,
   }) {
@@ -32,7 +32,7 @@ class DioServices extends GetxService {
 
     var dio = Dio(BaseOptions(
       headers: header,
-      baseUrl: '',
+      baseUrl: url,
       connectTimeout: timeOut,
       contentType: 'application/json',
       responseType: ResponseType.json,
@@ -58,8 +58,8 @@ class DioServices extends GetxService {
           final duration = endTime - startTime;
 
           log(
-            'Request to ${error.response?.requestOptions.uri} took $duration ms.\n${error.message}.\n${error.response}',
-            name: 'ERROR MESSAGE',
+            'Request to ${error.response?.requestOptions.uri} took $duration ms.\n${error.response}',
+            name: 'RESPONSE',
           );
         } catch (e) {
           log(

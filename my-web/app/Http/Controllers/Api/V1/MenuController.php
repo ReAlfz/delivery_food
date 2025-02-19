@@ -22,7 +22,7 @@ class MenuController extends Controller
                 'status' => 403,
                 'message' => 'Exception error',
                 'errors' => $ex->getMessage(),
-            ], 403);
+            ], 200);
         }
     }
 
@@ -42,7 +42,7 @@ class MenuController extends Controller
                 'status' => 403,
                 'message' => 'Exception error',
                 'errors' => $ex->getMessage(),
-            ], 403);
+            ], 200);
         }
     }
 
@@ -60,7 +60,7 @@ class MenuController extends Controller
                 'status' => 403,
                 'message' => 'Exception error',
                 'errors' => $ex->getMessage(),
-            ], 403);
+            ], 200);
         }
     }
 
@@ -105,7 +105,7 @@ class MenuController extends Controller
                 'status' => 403,
                 'message' => 'Exception error',
                 'errors' => $ex->getMessage(),
-            ], 403);
+            ], 200);
         }
     }
 }

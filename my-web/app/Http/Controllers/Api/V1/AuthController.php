@@ -16,26 +16,25 @@ class AuthController extends Controller
     {
         $validate_data = Validator::make($request->all(), [
             'username' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255|unique:users',
+            'phone' => 'required|string|regex:/^[0-9]{10,15}/|max:255|unique:users',
             'password' => 'required|string|confirmed|min:6',
-            'address' => 'required|string|max:255'
         ]);
 
         if ($validate_data->fails()) {
             return response()->json([
                 'status' => 403,
                 'message' => 'Validation Error',
-                'errors' => $validate_data->errors(),
-
+                'errors' => collect($validate_data->errors()->toArray())
+                    ->map(fn($messages) => $messages[0])
+                    ->all(),
             ], 403);
         }
 
         try {
             $user = User::create([
                 'username' => $request->username,
-                'email' => $request->email,
+                'phone' => $request->phone,
                 'password' => Hash::make($request->password),
-                'address' => $request->address,
             ]);
 
             $token_access = $user->createToken('auth_token')->plainTextToken;
@@ -50,36 +49,39 @@ class AuthController extends Controller
                 'status' => 403,
                 'message' => 'Exception Error',
                 'errors' => $ex->getMessage()
-            ], 403);
+            ], 200);
         }
     }
 
     public function login(Request $request)
     {
         $validate_data = Validator::make($request->all(), [
-            'email' => 'required|string|email',
+            'phone' => 'required|string|regex:/^[0-9]{10,15}/',
             'password' => 'required|string|min:6'
         ]);
 
         if ($validate_data->fails()) {
             return response()->json([
-                'status' => 'validate',
-                'errors' => $validate_data->errors()
+                'status' => 403,
+                'message' => 'Validation Error',
+                'errors' => collect($validate_data->errors()->toArray())
+                    ->map(fn($messages) => $messages[0])
+                    ->all(),
             ], 403);
         }
 
-        $credentials = $request->only('email', 'password');
+        $credentials = $request->only('phone', 'password');
 
         try {
             if (!Auth::attempt($credentials)) {
                 return response()->json([
                     'status' => 403,
                     'message' => 'Validation Error',
-                    'errors' => 'Invalid Credentials'
+                    'errors' => 'Incorrect Phone Number or Password'
                 ], 403);
             }
 
-            $user = User::firstWhere('email', $request->email);
+            $user = User::firstWhere('phone', $request->phone);
             $token_access = $user->createToken('auth_token')->plainTextToken;
 
             return response()->json([
