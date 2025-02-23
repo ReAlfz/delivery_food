@@ -19,14 +19,7 @@ class RegisterController extends GetxController {
   var passwordErrors = RxnString(null);
   var confirmErrors = RxnString(null);
 
-  late final AuthRepository authRepository;
   var submited = false.obs;
-
-  @override
-  void onInit() {
-    authRepository = AuthRepository();
-    super.onInit();
-  }
 
   void validateRegister() async {
     usernameErrors.value = null;
@@ -39,7 +32,7 @@ class RegisterController extends GetxController {
 
     if (isValid) {
       showLoading();
-      var response = await authRepository.register(
+      var response = await AuthRepository.register(
         username: userController.text,
         phone: phoneController.text,
         password: passwordController.text,

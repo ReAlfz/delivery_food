@@ -31,18 +31,18 @@ class AuthController extends Controller
         }
 
         try {
-            $user = User::create([
+            $userData = User::create([
                 'username' => $request->username,
                 'phone' => $request->phone,
                 'password' => Hash::make($request->password),
             ]);
 
-            $token_access = $user->createToken('auth_token')->plainTextToken;
+            $token_access = $userData->createToken('auth_token')->plainTextToken;
             return response()->json([
                 'status' => 201,
                 'message' => 'Register successful',
                 'access_token' => $token_access,
-                'users' => $user
+                'users' => $userData,
             ], 201);
         } catch (\Exception $ex) {
             return response()->json([
@@ -81,15 +81,15 @@ class AuthController extends Controller
                 ], 403);
             }
 
-            $user = User::firstWhere('phone', $request->phone);
-            $user->tokens()->delete();
-            $token_access = $user->createToken('auth_token')->plainTextToken;
+            $userData = User::firstWhere('phone', $request->phone);
+            $userData->tokens()->delete();
+            $token_access = $userData->createToken('auth_token')->plainTextToken;
 
             return response()->json([
                 'status' => 200,
                 'message' => 'Login Successful',
                 'access_token' => $token_access,
-                'users' => $user
+                'users' => $userData
             ], 200);
         } catch (\Exception $ex) {
             return response()->json([

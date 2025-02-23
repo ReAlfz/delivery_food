@@ -1,11 +1,9 @@
-import 'dart:convert';
-
 import 'package:delivery_food/helper/services/dio_services.dart';
 import 'package:delivery_food/modules/auth/models/user_model.dart';
 import 'package:dio/dio.dart';
 
 class AuthRepository {
-  Future<AuthModel> register({
+  static Future<AuthModel> register({
     required String username,
     required String phone,
     required String password,
@@ -17,13 +15,14 @@ class AuthRepository {
 
     try {
       final response = await dio.post(url);
-      return AuthModel.fromJson(jsonDecode(response.data));
+      Map<String, dynamic> responseData = response.data;
+      return AuthModel.fromJson(responseData);
     } on DioException catch (ex) {
       return AuthModel(errors: ex.response?.statusCode);
     }
   }
 
-  Future<AuthModel> login({
+  static Future<AuthModel> login({
     required String phone,
     required String password,
   }) async {
@@ -31,7 +30,8 @@ class AuthRepository {
     final url = '/login?phone=$phone&password=$password';
     try {
       final response = await dio.post(url);
-      return AuthModel.fromJson(jsonDecode(response.data));
+      Map<String, dynamic> responseData = response.data;
+      return AuthModel.fromJson(responseData);
     } on DioException catch (ex) {
       return AuthModel(errors: ex.response?.statusCode);
     }

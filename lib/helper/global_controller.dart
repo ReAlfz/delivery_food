@@ -5,6 +5,4 @@ class GlobalController extends GetxController {
   static GlobalController get to => Get.find();
 
   var auth = Rxn<AuthModel>(null);
-
-  Future<void> checkSession() async {}
 }

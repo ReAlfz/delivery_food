@@ -16,14 +16,6 @@ class LoginController extends GetxController {
 
   var errorTexts = RxnString(null);
 
-  late final AuthRepository authRepository;
-
-  @override
-  void onInit() {
-    authRepository = AuthRepository();
-    super.onInit();
-  }
-
   void login() async {
     showLoading();
 
@@ -32,7 +24,7 @@ class LoginController extends GetxController {
     Get.focusScope!.unfocus();
 
     if (isValid) {
-      var authData = await authRepository.login(
+      var authData = await AuthRepository.login(
         phone: phoneController.text,
         password: passwordController.text,
       );

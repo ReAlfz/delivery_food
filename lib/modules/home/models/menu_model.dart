@@ -1,4 +1,4 @@
-class Menu {
+class MenuModel {
   int? id;
   String? name;
   String? category;
@@ -6,7 +6,7 @@ class Menu {
   String? description;
   String? image;
 
-  Menu({
+  MenuModel({
     this.id,
     this.name,
     this.category,
@@ -15,7 +15,7 @@ class Menu {
     this.image,
   });
 
-  Menu copyWith({
+  MenuModel copyWith({
     int? id,
     String? name,
     String? category,
@@ -23,7 +23,7 @@ class Menu {
     String? description,
     String? image,
   }) =>
-      Menu(
+      MenuModel(
         id: id ?? this.id,
         name: name ?? this.name,
         category: category ?? this.category,
@@ -32,7 +32,7 @@ class Menu {
         image: image ?? this.image,
       );
 
-  factory Menu.fromJson(Map<String, dynamic> json) => Menu(
+  factory MenuModel.fromJson(Map<String, dynamic> json) => MenuModel(
         id: json["id"],
         name: json["name"],
         category: json["category"],

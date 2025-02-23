@@ -16,7 +16,7 @@ class HomeResponse {
   String? message;
   String? errors;
   int? page;
-  List<Menu>? data;
+  List<MenuModel>? data;
 
   HomeResponse({
     this.status,
@@ -31,7 +31,7 @@ class HomeResponse {
     String? message,
     String? errors,
     int? page,
-    List<Menu>? data,
+    List<MenuModel>? data,
   }) =>
       HomeResponse(
         status: status ?? this.status,
@@ -48,7 +48,8 @@ class HomeResponse {
         errors: json["errors"],
         data: json["data"] == null
             ? []
-            : List<Menu>.from(json["data"]!.map((x) => Menu.fromJson(x))),
+            : List<MenuModel>.from(
+                json["data"]!.map((x) => MenuModel.fromJson(x))),
       );
 
   Map<String, dynamic> toJson() => {
