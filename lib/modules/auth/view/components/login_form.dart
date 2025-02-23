@@ -14,7 +14,7 @@ class LoginForm extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           TextformWidget(
-            controller: LoginController.to.hpController,
+            controller: LoginController.to.phoneController,
             keyboardType: TextInputType.number,
             label: 'No Telp',
             hint: '089xxx',

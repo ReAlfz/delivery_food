@@ -1,10 +1,11 @@
+import 'dart:convert';
+
 import 'package:delivery_food/helper/services/dio_services.dart';
-import 'package:delivery_food/helper/services/hive_services.dart';
 import 'package:delivery_food/modules/auth/models/user_model.dart';
 import 'package:dio/dio.dart';
 
 class AuthRepository {
-  Future<RegisterModel> register({
+  Future<AuthModel> register({
     required String username,
     required String phone,
     required String password,
@@ -16,16 +17,23 @@ class AuthRepository {
 
     try {
       final response = await dio.post(url);
-      Map<String, dynamic> responseData = response.data;
-      HiveService.saveBearerToken(responseData['access_token']);
-      return RegisterModel.fromJson(responseData);
+      return AuthModel.fromJson(jsonDecode(response.data));
     } on DioException catch (ex) {
-      Map<String, dynamic> responseData = ex.response?.data;
-      var errors = Errors.fromJson(responseData['errors']);
-      return RegisterModel(
-        status: ex.response?.statusCode ?? 0,
-        errors: errors,
-      );
+      return AuthModel(errors: ex.response?.statusCode);
+    }
+  }
+
+  Future<AuthModel> login({
+    required String phone,
+    required String password,
+  }) async {
+    final dio = DioServices.call();
+    final url = '/login?phone=$phone&password=$password';
+    try {
+      final response = await dio.post(url);
+      return AuthModel.fromJson(jsonDecode(response.data));
+    } on DioException catch (ex) {
+      return AuthModel(errors: ex.response?.statusCode);
     }
   }
 }

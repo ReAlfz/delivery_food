@@ -3,6 +3,7 @@ import 'package:delivery_food/constants/app_color.dart';
 import 'package:delivery_food/constants/app_style.dart';
 import 'package:delivery_food/constants/assets_const.dart';
 import 'package:delivery_food/helper/widgets/custom_app_button.dart';
+import 'package:delivery_food/modules/auth/controllers/login_controller.dart';
 import 'package:delivery_food/modules/auth/view/components/login_form.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
@@ -49,7 +50,7 @@ class LoginView extends StatelessWidget {
                 CustomAppButton(
                   text: 'Login',
                   color: AppColor.primaryColor,
-                  onTap: () {},
+                  onTap: LoginController.to.login,
                 ),
                 30.verticalSpace,
                 Text.rich(

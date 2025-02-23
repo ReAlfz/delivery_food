@@ -1,7 +1,10 @@
 import 'dart:async';
+import 'dart:developer';
 
 import 'package:delivery_food/config/route.dart';
 import 'package:delivery_food/constants/assets_const.dart';
+import 'package:delivery_food/helper/global_controller.dart';
+import 'package:delivery_food/helper/services/hive_services.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -18,7 +21,13 @@ class _SplashView extends State<SplashView> {
     Timer(
       const Duration(seconds: 2),
       () async {
-        Get.offAndToNamed(AppRoutes.loginView);
+        GlobalController.to.auth.value = HiveService.getAuth();
+        log(GlobalController.to.auth.value?.accessToken ?? '');
+        if (GlobalController.to.auth.value != null) {
+          Get.offAndToNamed(AppRoutes.dashboardView);
+        } else {
+          Get.offAndToNamed(AppRoutes.loginView);
+        }
       },
     );
     super.initState();

@@ -82,6 +82,7 @@ class AuthController extends Controller
             }
 
             $user = User::firstWhere('phone', $request->phone);
+            $user->tokens()->delete();
             $token_access = $user->createToken('auth_token')->plainTextToken;
 
             return response()->json([

@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:delivery_food/helper/widgets/loading_widget.dart';
 import 'package:delivery_food/modules/auth/repositories/auth_repository.dart';
 import 'package:delivery_food/modules/auth/view/components/register_dialog.dart';
@@ -31,7 +29,6 @@ class RegisterController extends GetxController {
   }
 
   void validateRegister() async {
-    showLoading();
     usernameErrors.value = null;
     phoneErrors.value = null;
     passwordErrors.value = null;
@@ -41,14 +38,13 @@ class RegisterController extends GetxController {
     Get.focusScope!.unfocus();
 
     if (isValid) {
+      showLoading();
       var response = await authRepository.register(
         username: userController.text,
         phone: phoneController.text,
         password: passwordController.text,
         confirmPassword: confirmController.text,
       );
-
-      log(response.status!.toString(), name: 'status');
 
       if (response.status == 201) {
         hideLoading();

@@ -46,14 +46,15 @@ class MenuController extends Controller
         }
     }
 
-    public function menuCategory($category)
+    public function menuCategory($category, $page)
     {
         try {
-            $menuByCategory = Menu::where('category', $category)->get();
+            $menuByCategory = Menu::where('category', $category)->paginate(5, ['*'], 'page', $page);
             return response()->json([
                 'status' => 200,
                 'message' => 'successfuly get data',
-                'data' => $menuByCategory,
+                'page' => $menuByCategory->currentPage(),
+                'data' => $menuByCategory->items(),
             ], 200);
         } catch (\Exception $ex) {
             return response()->json([

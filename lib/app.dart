@@ -1,5 +1,6 @@
 import 'package:delivery_food/config/pages.dart';
 import 'package:delivery_food/config/route.dart';
+import 'package:delivery_food/helper/global_binding.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -19,6 +20,7 @@ class MyApp extends StatelessWidget {
           debugShowCheckedModeBanner: false,
           getPages: AppPages.pages(),
           initialRoute: AppRoutes.splashScreenView,
+          initialBinding: GlobalBinding(),
           scrollBehavior: ScrollConfiguration.of(context).copyWith(
             physics: const BouncingScrollPhysics(),
           ),

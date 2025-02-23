@@ -4,30 +4,22 @@ import 'package:hive/hive.dart';
 
 class HiveService {
   HiveService._();
-  static const String bearerTokenKey = 'bearerTokenKey';
   static const String authUserKey = 'authKey';
   static final authHive = Hive.box(
     FlavorConfig.instance.variables['localStorage'],
   );
 
-  static saveBearerToken(String token) {
-    authHive.put(bearerTokenKey, token);
-  }
-
-  static String? getBearerToken() {
-    return authHive.get(bearerTokenKey, defaultValue: "");
-  }
-
-  static saveAuth(UserModel user) {
+  static saveAuth(AuthModel user) {
     authHive.put(authUserKey, user);
   }
 
-  static UserModel? getAuth() {
-    return authHive.get(authUserKey) as UserModel;
+  static AuthModel? getAuth() {
+    final data = authHive.get(authUserKey);
+    if (data == null) return null;
+    return data as AuthModel;
   }
 
   static clearAuth() {
     authHive.delete(authUserKey);
-    authHive.delete(bearerTokenKey);
   }
 }

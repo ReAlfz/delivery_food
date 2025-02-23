@@ -50,7 +50,7 @@ class RegisterView extends StatelessWidget {
                 CustomAppButton(
                   text: 'Register',
                   color: AppColor.primaryColor,
-                  onTap: () => RegisterController.to.validateRegister(),
+                  onTap: RegisterController.to.validateRegister,
                 ),
                 30.verticalSpace,
                 Text.rich(

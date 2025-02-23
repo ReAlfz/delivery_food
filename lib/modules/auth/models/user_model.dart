@@ -8,44 +8,58 @@ import 'package:hive/hive.dart';
 
 part 'user_model.g.dart';
 
-RegisterModel loginFromJson(String str) =>
-    RegisterModel.fromJson(json.decode(str));
+AuthModel loginFromJson(String str) => AuthModel.fromJson(json.decode(str));
 
-String loginToJson(RegisterModel data) => json.encode(data.toJson());
+String loginToJson(AuthModel data) => json.encode(data.toJson());
 
-class RegisterModel {
+@HiveType(typeId: 0)
+class AuthModel {
+  @HiveField(0)
   int? status;
+  @HiveField(1)
   String? accessToken;
-  Errors? errors;
+  @HiveField(2)
+  dynamic errors;
+  @HiveField(3)
   UserModel? users;
 
-  RegisterModel({
+  AuthModel({
     this.status,
     this.accessToken,
     this.errors,
     this.users,
   });
 
-  RegisterModel copyWith({
+  AuthModel copyWith({
     int? status,
     String? message,
     String? accessToken,
-    Errors? errors,
+    dynamic errors,
     UserModel? users,
   }) =>
-      RegisterModel(
+      AuthModel(
         status: status ?? this.status,
         accessToken: accessToken ?? this.accessToken,
         errors: errors ?? this.errors,
         users: users ?? this.users,
       );
 
-  factory RegisterModel.fromJson(Map<String, dynamic> json) => RegisterModel(
+  factory AuthModel.fromJson(Map<String, dynamic> json) => AuthModel(
         status: json["status"],
         accessToken: json["access_token"],
-        errors: json["errors"] == null ? null : Errors.fromJson(json["errors"]),
+        errors: _parseErrors(json['errors']),
         users: json["users"] == null ? null : UserModel.fromJson(json["users"]),
       );
+
+  static dynamic _parseErrors(dynamic errors) {
+    if (errors is String) {
+      return errors;
+    } else if (errors is Map<String, dynamic>) {
+      return Errors.fromJson(errors);
+    } else {
+      return null;
+    }
+  }
 
   Map<String, dynamic> toJson() => {
         "status": status,
@@ -90,7 +104,7 @@ class Errors {
       };
 }
 
-@HiveType(typeId: 0)
+@HiveType(typeId: 1)
 class UserModel extends HiveObject {
   @HiveField(0)
   String? username;

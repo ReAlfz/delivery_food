@@ -15,7 +15,7 @@ Route::prefix('v1')->group(function () {
             Route::get('/all', [MenuController::class, 'menuAll']);
             Route::get('/page/{page}', [MenuController::class, 'menuPage']);
             Route::get('/detail/{id}', [MenuController::class, 'menuById']);
-            Route::get('/category/{category}', [MenuController::class, 'menuCategory']);
+            Route::get('/category/{category}/{page}', [MenuController::class, 'menuCategory']);
         });
         Route::prefix('order')->group(function () {
             Route::post('/add', [OrderController::class, 'createOrder']);
