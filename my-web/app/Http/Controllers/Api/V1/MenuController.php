@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers\Api\V1;
 
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Menu;
 
@@ -30,6 +29,14 @@ class MenuController extends Controller
     {
         try {
             $menu = Menu::paginate(5, ['*'], 'page', $page);
+
+            if ($page > $menu->lastPage()) {
+                return response()->json([
+                    'status' => 204,
+                    'message' => 'No More Data',
+                    'page' => $menu->lastPage(),
+                ], 200);
+            }
 
             return response()->json([
                 'status' => 200,

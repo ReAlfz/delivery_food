@@ -51,6 +51,19 @@ class AppStyle {
     fontFamily: 'Poppins',
   );
 
+  static final TextStyle f18TextW500Black = TextStyle(
+    fontSize: 18.sp,
+    color: AppColor.blackColor1F1F1F,
+    fontWeight: FontWeight.w500,
+    fontFamily: 'Poppins',
+  );
+  static final TextStyle f18TextW600Black = TextStyle(
+    fontSize: 18.sp,
+    color: AppColor.blackColor1F1F1F,
+    fontWeight: FontWeight.w600,
+    fontFamily: 'Poppins',
+  );
+
   static final TextStyle f11TextW500White = TextStyle(
     fontSize: 11.sp,
     color: AppColor.whiteColor,
@@ -85,6 +98,19 @@ class AppStyle {
 
   static final TextStyle f16TextW600White = TextStyle(
     fontSize: 16.sp,
+    color: AppColor.whiteColor,
+    fontWeight: FontWeight.w600,
+    fontFamily: 'Poppins',
+  );
+
+  static final TextStyle f18TextW500White = TextStyle(
+    fontSize: 18.sp,
+    color: AppColor.whiteColor,
+    fontWeight: FontWeight.w500,
+    fontFamily: 'Poppins',
+  );
+  static final TextStyle f18TextW600White = TextStyle(
+    fontSize: 18.sp,
     color: AppColor.whiteColor,
     fontWeight: FontWeight.w600,
     fontFamily: 'Poppins',
