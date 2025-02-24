@@ -77,6 +77,7 @@ flutter:
     - assets/svgs/localization/
     - assets/svgs/order/
     - assets/svgs/profile/
+    - assets/svgs/other/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

@@ -2,7 +2,8 @@ class AssetsConst {
   AssetsConst._();
 
   static const String logo = 'assets/images/logo.png';
-  static const String homeIcon = 'assets/svgs/navbar/ic_home_bottom_navbar.svg';
+  static const String homeIcon =
+      'assets/svgs/bottom_navbar/ic_home_bottom_navbar.svg';
   static const String orderIcon =
       'assets/svgs/bottom_navbar/ic_order_bottom_navbar.svg';
   static const String profileIcon =
@@ -26,4 +27,8 @@ class AssetsConst {
 
   static const String ktpIcon = 'assets/svgs/profile/ic_ktp.svg';
   static const String reviewIcon = 'assets/svgs/profile/ic_review.svg';
+
+  static const String discountBg = 'assets/svgs/other/discount_img.svg';
+  static const String nominalBg = 'assets/svgs/other/nominal_img.svg';
+  static const String lineBg = 'assets/svgs/other/line.svg';
 }

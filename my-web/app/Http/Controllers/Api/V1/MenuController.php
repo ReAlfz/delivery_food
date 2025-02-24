@@ -57,6 +57,15 @@ class MenuController extends Controller
     {
         try {
             $menuByCategory = Menu::where('category', $category)->paginate(5, ['*'], 'page', $page);
+
+            if ($page > $menuByCategory->lastPage()) {
+                return response()->json([
+                    'status' => 204,
+                    'message' => 'No More Data',
+                    'page' => $menuByCategory->lastPage(),
+                ], 200);
+            }
+
             return response()->json([
                 'status' => 200,
                 'message' => 'successfuly get data',
