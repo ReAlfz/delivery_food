@@ -19,6 +19,7 @@ class DashboardView extends StatelessWidget {
         return Padding(
           padding: EdgeInsets.only(
             top: MediaQuery.of(context).viewPadding.top,
+            bottom: MediaQuery.of(context).viewPadding.bottom,
           ),
           child: IndexedStack(
             sizing: StackFit.expand,

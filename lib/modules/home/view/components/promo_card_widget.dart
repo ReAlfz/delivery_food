@@ -26,7 +26,7 @@ class PromoCardWidget extends StatelessWidget {
       borderRadius: BorderRadius.circular(16.r),
       child: Container(
         margin: EdgeInsets.symmetric(vertical: 8.h),
-        width: witdh ?? 280.w,
+        width: witdh ?? 300.w,
         height: 180.h,
         decoration: BoxDecoration(
           color: AppColor.mintColor,

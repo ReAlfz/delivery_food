@@ -2,6 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:delivery_food/constants/app_color.dart';
 import 'package:delivery_food/constants/app_style.dart';
 import 'package:delivery_food/constants/data_const.dart';
+import 'package:delivery_food/helper/widgets/quantity_widget.dart';
 import 'package:delivery_food/modules/home/models/menu_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -83,18 +84,18 @@ class MenuCardWidget extends StatelessWidget {
                   ),
                 ),
               ),
-              // Container(
-              //   height: 75.r,
-              //   padding: EdgeInsets.only(left: 12.r, right: 5.r),
-              //   child: InkWell(
-              //     splashFactory: NoSplash.splashFactory,
-              //     child: QuantityCounter(
-              //       quantity: menu.jumlah,
-              //       onIncrement: onIncrement,
-              //       onDecrement: onDecrement,
-              //     ),
-              //   ),
-              // ),
+              Container(
+                height: 75.r,
+                padding: EdgeInsets.only(left: 12.r, right: 5.r),
+                child: InkWell(
+                  splashFactory: NoSplash.splashFactory,
+                  child: QuantityWidget(
+                    quantity: menu.quantity,
+                    onIncrement: onIncrement,
+                    onDecrement: onDecrement,
+                  ),
+                ),
+              ),
             ],
           ),
         ),

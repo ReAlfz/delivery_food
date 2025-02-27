@@ -5,4 +5,5 @@ class AppRoutes {
   static const String loginView = '/login';
   static const String registerView = '/register';
   static const String dashboardView = '/dashboard';
+  static const String detailMenuView = '/detail-menu';
 }

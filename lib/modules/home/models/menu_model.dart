@@ -4,6 +4,7 @@ class MenuModel {
   String? category;
   int? price;
   String? description;
+  int quantity;
   String? image;
   List<int>? topping;
 
@@ -15,6 +16,7 @@ class MenuModel {
     this.description,
     this.image,
     this.topping,
+    this.quantity = 0,
   });
 
   MenuModel copyWith({
@@ -25,6 +27,7 @@ class MenuModel {
     String? description,
     String? image,
     List<int>? topping,
+    int? quantity,
   }) =>
       MenuModel(
         id: id ?? this.id,
@@ -34,6 +37,7 @@ class MenuModel {
         description: description ?? this.description,
         image: image ?? this.image,
         topping: topping ?? this.topping,
+        quantity: quantity ?? this.quantity,
       );
 
   factory MenuModel.fromJson(Map<String, dynamic> json) => MenuModel(

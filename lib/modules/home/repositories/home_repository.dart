@@ -5,9 +5,12 @@ import 'package:delivery_food/modules/home/models/voucher_model.dart';
 import 'package:dio/dio.dart';
 
 class HomeRepository {
-  static Future<HomeResponse> getMenu({required int page}) async {
+  static Future<HomeResponse> getMenu({
+    required int page,
+    String? category,
+  }) async {
     String token = "Bearer ${GlobalController.to.auth.value!.accessToken}";
-    final url = '/menu/page/$page';
+    final url = '/menu/$page/$category';
     final dio = DioServices.call(authorization: token);
 
     try {

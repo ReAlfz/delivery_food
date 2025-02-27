@@ -11,7 +11,7 @@ class DioServices extends GetxService {
   static final url = FlavorConfig.instance.variables['baseUrl'];
   factory DioServices() => dioServices;
 
-  static const Duration timeOut = Duration(seconds: 1000);
+  static const Duration timeOut = Duration(seconds: 10);
   static Dio call({
     Duration timeOut = timeOut,
     String? bearerToken,

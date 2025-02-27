@@ -5,7 +5,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 class CustomAppButton extends StatelessWidget {
   final Function()? onTap;
   final double? width, height;
-  final String? text;
+  final String text;
   final Color color;
   final double? borderRadius;
   final TextStyle? textStyle;
@@ -15,7 +15,7 @@ class CustomAppButton extends StatelessWidget {
     this.onTap,
     this.width,
     this.height,
-    this.text,
+    required this.text,
     required this.color,
     this.borderRadius,
     this.textStyle,
@@ -44,7 +44,7 @@ class CustomAppButton extends StatelessWidget {
       ),
       child: widget ??
           Text(
-            text ?? '',
+            text,
             style: textStyle ?? AppStyle.f14TextW500White,
           ),
     );

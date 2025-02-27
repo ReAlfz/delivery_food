@@ -20,7 +20,7 @@ class LoadingWidget extends StatelessWidget {
           const CircularProgressIndicator(
             color: AppColor.greenColor66CA98,
           ),
-          20.verticalSpace,
+          16.verticalSpace,
           Text(
             "Loading...",
             style: AppStyle.f14TextW500Black,

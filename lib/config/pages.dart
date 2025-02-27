@@ -5,6 +5,8 @@ import 'package:delivery_food/modules/auth/view/login_view.dart';
 import 'package:delivery_food/modules/auth/view/register_view.dart';
 import 'package:delivery_food/modules/dashboard/bindings/dashboard_binding.dart';
 import 'package:delivery_food/modules/dashboard/view/dashboard_view.dart';
+import 'package:delivery_food/modules/detail_menu/bindings/detail_menu_binding.dart';
+import 'package:delivery_food/modules/detail_menu/view/detail_menu_view.dart';
 import 'package:delivery_food/modules/splash_screen/splash_view.dart';
 import 'package:get/get.dart';
 
@@ -35,6 +37,12 @@ class AppPages {
         name: AppRoutes.dashboardView,
         page: () => const DashboardView(),
         binding: DashboardBinding(),
+      ),
+
+      GetPage(
+        name: AppRoutes.detailMenuView,
+        page: () => const DetailMenuView(),
+        binding: DetailMenuBinding(),
       )
     ];
   }

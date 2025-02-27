@@ -1,6 +1,7 @@
 import 'package:delivery_food/constants/app_style.dart';
 import 'package:delivery_food/helper/global_controller.dart';
 import 'package:delivery_food/modules/home/controllers/home_controller.dart';
+import 'package:delivery_food/modules/home/view/components/chip_widget.dart';
 import 'package:delivery_food/modules/home/view/components/menu_card_widget.dart';
 import 'package:delivery_food/modules/home/view/components/promo_card_widget.dart';
 import 'package:delivery_food/modules/home/view/components/search_appbar_widget.dart';
@@ -15,17 +16,23 @@ class HomeView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var homeController = HomeController.to;
+    var globalController = GlobalController.to;
     return GestureDetector(
       onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
       child: Scaffold(
         appBar: SearchAppbarWidget(
-          onChanged: (value) => GlobalController.to.keyword(value),
+          onChanged: (value) {},
         ),
         body: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 8.w),
-          child: NestedScrollView(
-            headerSliverBuilder: (context, innerBoxIsScrolled) {
-              return [
+          padding: EdgeInsets.symmetric(horizontal: 10.w),
+          child: SmartRefresher(
+            controller: homeController.refreshController,
+            onRefresh: homeController.refreshHome,
+            onLoading: homeController.onLoadingHome,
+            enablePullUp: homeController.loadMoreStatus(),
+            enablePullDown: true,
+            child: CustomScrollView(
+              slivers: [
                 SliverToBoxAdapter(child: 32.verticalSpace),
                 SliverToBoxAdapter(
                   child: Text(
@@ -55,26 +62,54 @@ class HomeView extends StatelessWidget {
                   }),
                 ),
                 SliverToBoxAdapter(child: 32.verticalSpace),
-              ];
-            },
-            body: Obx(() {
-              return SmartRefresher(
-                controller: homeController.refreshController,
-                onRefresh: homeController.refreshHome,
-                onLoading: homeController.onLoadingHome,
-                enablePullUp: homeController.canLoadMore.value,
-                enablePullDown: true,
-                child: ListView.separated(
-                  padding: EdgeInsets.symmetric(horizontal: 8.w),
-                  itemCount: GlobalController.to.listMenu.length,
-                  separatorBuilder: (context, index) => 8.verticalSpace,
-                  itemBuilder: (context, index) {
-                    var menu = GlobalController.to.listMenu[index];
-                    return MenuCardWidget(menu: menu);
-                  },
+                SliverToBoxAdapter(
+                  child: SizedBox(
+                    height: 48.h,
+                    child: ListView.separated(
+                      scrollDirection: Axis.horizontal,
+                      itemCount: homeController.categoryMapping.length,
+                      separatorBuilder: (context, index) => 16.horizontalSpace,
+                      itemBuilder: (context, index) {
+                        String category = homeController.categoryMapping.keys
+                            .elementAt(index);
+                        return Obx(() {
+                          return ChipWidget(
+                            onTap: () =>
+                                homeController.changeCurrentCategory(category),
+                            isSelected: homeController.currentCategory.value ==
+                                category,
+                            text: category,
+                            frontIcon: homeController.iconCategory[category],
+                          );
+                        });
+                      },
+                    ),
+                  ),
                 ),
-              );
-            }),
+                SliverToBoxAdapter(child: 32.verticalSpace),
+                Obx(() {
+                  return SliverList.separated(
+                    itemCount: homeController.currentList.length,
+                    separatorBuilder: (context, index) => 8.verticalSpace,
+                    itemBuilder: (context, index) {
+                      var menu = homeController.currentList[index];
+                      return MenuCardWidget(
+                        menu: menu,
+                        onTap: homeController.goToDetail,
+                        onDecrement: () => globalController.decrementQuantity(
+                          menu: menu,
+                          currentList: homeController.currentList,
+                        ),
+                        onIncrement: () => globalController.incrementQuantity(
+                          menu: menu,
+                          currentList: homeController.currentList,
+                        ),
+                      );
+                    },
+                  );
+                }),
+              ],
+            ),
           ),
         ),
       ),
