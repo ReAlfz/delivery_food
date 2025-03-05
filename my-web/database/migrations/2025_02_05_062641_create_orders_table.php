@@ -27,6 +27,7 @@ return new class extends Migration
             $table->foreignId('menu_id')->constrained('menus', 'id')->onDelete('cascade');
             $table->integer('quantity');
             $table->json('topping');
+            $table->string('note');
             $table->timestamps();
         });
     }

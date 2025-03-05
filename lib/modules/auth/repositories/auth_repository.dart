@@ -10,11 +10,16 @@ class AuthRepository {
     required String confirmPassword,
   }) async {
     final dio = DioServices.call();
-    final url =
-        "/register?username=$username&phone=$phone&password=$password&password_confirmation=$confirmPassword";
+    const url = "/register";
 
     try {
-      final response = await dio.post(url);
+      final Map<String, String> data = {
+        "username": username,
+        "phone": phone,
+        "password": password,
+        "password_confirmation": confirmPassword,
+      };
+      final response = await dio.post(url, data: data);
       Map<String, dynamic> responseData = response.data;
       return AuthModel.fromJson(responseData);
     } on DioException catch (ex) {
@@ -27,9 +32,14 @@ class AuthRepository {
     required String password,
   }) async {
     final dio = DioServices.call();
-    final url = '/login?phone=$phone&password=$password';
+    const url = '/login';
+
     try {
-      final response = await dio.post(url);
+      final Map<String, String> data = {
+        "phone": phone,
+        "password": password,
+      };
+      final response = await dio.post(url, data: data);
       Map<String, dynamic> responseData = response.data;
       return AuthModel.fromJson(responseData);
     } on DioException catch (ex) {

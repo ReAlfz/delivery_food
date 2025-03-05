@@ -18,7 +18,7 @@ class AssetsConst {
   static const String voucherIcon = 'assets/svgs/checkout/ic_voucher.svg';
 
   static const String noteIcon = 'assets/svgs/details/ic_catatan.svg';
-  static const String priceIcon = 'assets/svgs/details/ic_harge.svg';
+  static const String priceIcon = 'assets/svgs/details/ic_harga.svg';
   static const String listIcon = 'assets/svgs/details/ic_syarat.svg';
   static const String toppingIcon = 'assets/svgs/details/ic_topping.svg';
 

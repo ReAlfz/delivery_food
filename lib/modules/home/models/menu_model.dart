@@ -1,3 +1,5 @@
+import 'package:delivery_food/modules/detail_menu/models/detail_menu_model.dart';
+
 class MenuModel {
   int? id;
   String? name;
@@ -6,7 +8,7 @@ class MenuModel {
   String? description;
   int quantity;
   String? image;
-  List<int>? topping;
+  List<dynamic>? topping;
 
   MenuModel({
     this.id,
@@ -26,7 +28,7 @@ class MenuModel {
     int? price,
     String? description,
     String? image,
-    List<int>? topping,
+    List<dynamic>? topping,
     int? quantity,
   }) =>
       MenuModel(
@@ -47,9 +49,16 @@ class MenuModel {
       price: json["price"],
       description: json["description"],
       image: json["image"],
-      topping: json["topping_menu"] == null
-          ? []
-          : List<int>.from(json["topping_menu"]!.map((x) => x)));
+      topping:
+          json["topping_menu"] == null ? [] : _parseList(json["topping_menu"]));
+
+  static List<dynamic> _parseList(dynamic data) {
+    if (data is List<int>) {
+      return List<int>.from(data.map((x) => x));
+    }
+
+    return List<ToppingMenu>.from(data.map((x) => ToppingMenu.fromJson(x)));
+  }
 
   Map<String, dynamic> toJson() => {
         "id": id,

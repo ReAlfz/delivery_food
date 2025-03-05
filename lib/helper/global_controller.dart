@@ -8,7 +8,7 @@ import 'package:get/get.dart';
 
 class GlobalController extends GetxController {
   static GlobalController get to => Get.find();
-  RxList selectedMenuList = RxList.empty();
+  RxList<MenuModel> selectedMenuList = RxList.empty();
   var auth = Rxn<AuthModel>(null);
 
   void expiredTokenHandler() {
@@ -26,7 +26,11 @@ class GlobalController extends GetxController {
     );
   }
 
-  void incrementQuantity({required MenuModel menu, RxList? currentList}) {
+  void incrementQuantity({
+    required MenuModel menu,
+    RxList? currentList,
+    Function()? specificFunc,
+  }) {
     if (!selectedMenuList.contains(menu)) {
       menu.quantity += 1;
       selectedMenuList.add(menu);
@@ -35,9 +39,14 @@ class GlobalController extends GetxController {
     }
     selectedMenuList.refresh();
     currentList?.refresh();
+    specificFunc?.call();
   }
 
-  void decrementQuantity({required MenuModel menu, RxList? currentList}) {
+  void decrementQuantity({
+    required MenuModel menu,
+    RxList? currentList,
+    Function()? specificFunc,
+  }) {
     if (menu.quantity > 1) {
       menu.quantity -= 1;
     } else {
@@ -46,5 +55,6 @@ class GlobalController extends GetxController {
     }
     selectedMenuList.refresh();
     currentList?.refresh();
+    specificFunc?.call();
   }
 }

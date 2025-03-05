@@ -13,8 +13,8 @@ Route::prefix('v1')->group(function () {
     Route::middleware('auth:sanctum')->group(function () {
         Route::post('/logout', [AuthController::class, 'logout']);
         Route::prefix('menu')->group(function () {
-            Route::get('/{page}/{category?}', [MenuController::class, 'menuPage']);
             Route::get('/detail/{id}', [MenuController::class, 'menuById']);
+            Route::get('/{page}/{category?}', [MenuController::class, 'menuPage']);
         });
         Route::prefix('order')->group(function () {
             Route::post('/add', [OrderController::class, 'createOrder']);

@@ -1,3 +1,4 @@
+import 'package:delivery_food/constants/app_color.dart';
 import 'package:delivery_food/constants/app_style.dart';
 import 'package:delivery_food/helper/global_controller.dart';
 import 'package:delivery_food/modules/home/controllers/home_controller.dart';
@@ -95,7 +96,7 @@ class HomeView extends StatelessWidget {
                       var menu = homeController.currentList[index];
                       return MenuCardWidget(
                         menu: menu,
-                        onTap: homeController.goToDetail,
+                        onTap: () => homeController.goToDetail(menu.id!),
                         onDecrement: () => globalController.decrementQuantity(
                           menu: menu,
                           currentList: homeController.currentList,
@@ -112,6 +113,21 @@ class HomeView extends StatelessWidget {
             ),
           ),
         ),
+        floatingActionButton: Obx(() {
+          if (globalController.selectedMenuList.isNotEmpty) {
+            return FloatingActionButton(
+              backgroundColor: AppColor.primaryColor,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(16.r),
+              ),
+              onPressed: () {},
+              child: const Icon(
+                Icons.shopping_cart_outlined,
+              ),
+            );
+          }
+          return const SizedBox();
+        }),
       ),
     );
   }

@@ -132,5 +132,8 @@ class HomeController extends GetxController {
   }
 
   bool loadMoreStatus() => canLoadMore[currentCategory.value]!.value;
-  void goToDetail() => Get.toNamed(AppRoutes.detailMenuView);
+  void goToDetail(int id) => Get.toNamed(
+        AppRoutes.detailMenuView,
+        arguments: id,
+      );
 }
