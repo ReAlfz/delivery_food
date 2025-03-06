@@ -1,5 +1,6 @@
 import 'dart:developer';
 
+import 'package:delivery_food/helper/global_controller.dart';
 import 'package:flutter_flavor/flutter_flavor.dart';
 import 'package:get/get.dart';
 import 'package:dio/dio.dart';
@@ -62,9 +63,10 @@ class DioServices extends GetxService {
             name: 'RESPONSE',
           );
         } catch (e) {
-          log(
-            e.toString(),
-            name: 'ERROR MESSAGE',
+          log(e.toString(), name: 'ERROR MESSAGE');
+          GlobalController.to.expiredTokenHandler(
+            message:
+                'No Internet Connection or Server Error. Please try again later.',
           );
         }
 

@@ -8,7 +8,8 @@ class MenuModel {
   String? description;
   int quantity;
   String? image;
-  List<dynamic>? topping;
+  String? note;
+  List<ToppingMenu>? topping;
 
   MenuModel({
     this.id,
@@ -18,6 +19,7 @@ class MenuModel {
     this.description,
     this.image,
     this.topping,
+    this.note,
     this.quantity = 0,
   });
 
@@ -28,7 +30,8 @@ class MenuModel {
     int? price,
     String? description,
     String? image,
-    List<dynamic>? topping,
+    String? note,
+    List<ToppingMenu>? topping,
     int? quantity,
   }) =>
       MenuModel(
@@ -39,26 +42,24 @@ class MenuModel {
         description: description ?? this.description,
         image: image ?? this.image,
         topping: topping ?? this.topping,
+        note: note ?? this.note,
         quantity: quantity ?? this.quantity,
       );
 
   factory MenuModel.fromJson(Map<String, dynamic> json) => MenuModel(
-      id: json["id"],
-      name: json["name"],
-      category: json["category"],
-      price: json["price"],
-      description: json["description"],
-      image: json["image"],
-      topping:
-          json["topping_menu"] == null ? [] : _parseList(json["topping_menu"]));
-
-  static List<dynamic> _parseList(dynamic data) {
-    if (data is List<int>) {
-      return List<int>.from(data.map((x) => x));
-    }
-
-    return List<ToppingMenu>.from(data.map((x) => ToppingMenu.fromJson(x)));
-  }
+        id: json["id"],
+        name: json["name"],
+        category: json["category"],
+        price: json["price"],
+        description: json["description"],
+        image: json["image"],
+        note: json["note"],
+        quantity: json["quantity"] ?? 0,
+        topping: json["topping_menu"] == null
+            ? []
+            : List<ToppingMenu>.from(
+                json["topping_menu"].map((x) => ToppingMenu.fromJson(x))),
+      );
 
   Map<String, dynamic> toJson() => {
         "id": id,
@@ -67,7 +68,10 @@ class MenuModel {
         "price": price,
         "description": description,
         "image": image,
-        "topping":
-            topping == null ? [] : List<dynamic>.from(topping!.map((x) => x)),
+        "note": note,
+        "quantity": quantity,
+        "topping": topping == null
+            ? []
+            : List<ToppingMenu>.from(topping!.map((x) => x)),
       };
 }

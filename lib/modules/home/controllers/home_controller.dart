@@ -37,7 +37,10 @@ class HomeController extends GetxController {
   @override
   void onInit() async {
     var voucherData = await HomeRepository.getVoucher();
-    listVoucher.value = voucherData.data!;
+    if (voucherData.status == 200) {
+      listVoucher.value = voucherData.data!;
+    }
+
     await initList(
       categoryMapping.keys.elementAt(0),
       categoryMapping.values.elementAt(0),
@@ -132,6 +135,7 @@ class HomeController extends GetxController {
   }
 
   bool loadMoreStatus() => canLoadMore[currentCategory.value]!.value;
+  void goToCheckout() => Get.toNamed(AppRoutes.checkoutView);
   void goToDetail(int id) => Get.toNamed(
         AppRoutes.detailMenuView,
         arguments: id,

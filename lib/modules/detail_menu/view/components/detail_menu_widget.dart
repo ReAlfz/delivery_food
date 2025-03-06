@@ -8,6 +8,7 @@ import 'package:delivery_food/modules/detail_menu/controllers/detail_menu_contro
 import 'package:delivery_food/modules/home/models/menu_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 
 class DetailMenuWidget extends StatelessWidget {
   final MenuModel menu;
@@ -33,15 +34,17 @@ class DetailMenuWidget extends StatelessWidget {
                 color: AppColor.primaryColor,
               ),
             ),
-            QuantityWidget(
-              quantity: menu.quantity,
-              onDecrement: () => globalController.decrementQuantity(
-                menu: menu,
-                specificFunc: () => detailMenuController.detailMenu.refresh(),
-              ),
-              onIncrement: () => globalController.incrementQuantity(
-                menu: menu,
-                specificFunc: () => detailMenuController.detailMenu.refresh(),
+            Obx(
+              () => QuantityWidget(
+                quantity: detailMenuController.detailMenu.value?.quantity ?? 0,
+                onDecrement: () => globalController.decrementQuantity(
+                  menu: menu,
+                  specificFunc: () => detailMenuController.detailMenu.refresh(),
+                ),
+                onIncrement: () => globalController.incrementQuantity(
+                  menu: menu,
+                  specificFunc: () => detailMenuController.detailMenu.refresh(),
+                ),
               ),
             ),
           ],
@@ -65,34 +68,46 @@ class DetailMenuWidget extends StatelessWidget {
             fontWeight: FontWeight.bold,
           ),
           messageStyle: AppStyle.f16TextW600Black.copyWith(
+            letterSpacing: 1.2,
             fontWeight: FontWeight.bold,
             color: AppColor.primaryColor,
           ),
         ),
         const Divider(),
-        TileOptionWidget(
-          title: 'Topping',
-          message: menu.topping?.first.name,
-          svgPicture: AssetsConst.toppingIcon,
-          titleStyle: AppStyle.f16TextW600Black.copyWith(
-            fontWeight: FontWeight.bold,
-          ),
-          messageStyle: AppStyle.f16TextW600Black.copyWith(
-            fontWeight: FontWeight.w600,
-          ),
-        ),
+        Obx(() {
+          var topping =
+              detailMenuController.detailMenu.value!.topping!.isNotEmpty
+                  ? detailMenuController.selectedTopping
+                      .map((element) => element.name)
+                      .toList()
+                      .join(', ')
+                  : '...';
+          return TileOptionWidget(
+            title: 'Topping',
+            message: topping,
+            svgPicture: AssetsConst.toppingIcon,
+            titleStyle: AppStyle.f16TextW600Black.copyWith(
+              fontWeight: FontWeight.bold,
+            ),
+            messageStyle: AppStyle.f16TextW600Black.copyWith(
+              fontWeight: FontWeight.w600,
+            ),
+            onTap: detailMenuController.detailMenu.value!.topping!.isNotEmpty
+                ? () => detailMenuController.showOption(option: 'topping')
+                : null,
+          );
+        }),
         const Divider(),
-        TileOptionWidget(
-          title: 'Note',
-          message: '...',
-          svgPicture: AssetsConst.noteIcon,
-          titleStyle: AppStyle.f16TextW600Black.copyWith(
-            fontWeight: FontWeight.bold,
-          ),
-          messageStyle: AppStyle.f16TextW600Black.copyWith(
-            fontWeight: FontWeight.w600,
-          ),
-        ),
+        Obx(() => TileOptionWidget(
+              title: 'Note',
+              message: detailMenuController.detailMenu.value?.note ?? '...',
+              svgPicture: AssetsConst.noteIcon,
+              titleStyle: AppStyle.f16TextW600Black.copyWith(
+                fontWeight: FontWeight.bold,
+              ),
+              messageStyle: AppStyle.f16TextW500Black,
+              onTap: () => detailMenuController.showOption(option: 'note'),
+            )),
         const Divider(),
       ],
     );

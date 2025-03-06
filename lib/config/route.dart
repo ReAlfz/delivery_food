@@ -6,4 +6,5 @@ class AppRoutes {
   static const String registerView = '/register';
   static const String dashboardView = '/dashboard';
   static const String detailMenuView = '/detail-menu';
+  static const String checkoutView = '/checkout';
 }

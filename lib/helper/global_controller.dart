@@ -11,14 +11,15 @@ class GlobalController extends GetxController {
   RxList<MenuModel> selectedMenuList = RxList.empty();
   var auth = Rxn<AuthModel>(null);
 
-  void expiredTokenHandler() {
+  void expiredTokenHandler({String? message}) {
     HiveService.clearAuth();
     auth.value = null;
     Get.dialog(
       Dialog(
         backgroundColor: Colors.transparent,
         child: MessageWidget(
-          text: "This account session has expired, please login again",
+          text:
+              message ?? "This account session has expired, please login again",
           onTap: () => Get.offAndToNamed(AppRoutes.loginView),
         ),
       ),
@@ -31,12 +32,15 @@ class GlobalController extends GetxController {
     RxList? currentList,
     Function()? specificFunc,
   }) {
-    if (!selectedMenuList.contains(menu)) {
-      menu.quantity += 1;
-      selectedMenuList.add(menu);
+    int index = selectedMenuList.indexWhere((item) => item.id == menu.id);
+    if (index != -1) {
+      menu.quantity = menu.quantity + 1;
+      selectedMenuList[index].quantity = menu.quantity;
     } else {
-      menu.quantity += 1;
+      menu.quantity = 1;
+      selectedMenuList.add(menu);
     }
+
     selectedMenuList.refresh();
     currentList?.refresh();
     specificFunc?.call();
@@ -47,12 +51,15 @@ class GlobalController extends GetxController {
     RxList? currentList,
     Function()? specificFunc,
   }) {
-    if (menu.quantity > 1) {
-      menu.quantity -= 1;
-    } else {
-      menu.quantity -= 1;
-      selectedMenuList.remove(menu);
+    int index = selectedMenuList.indexWhere((item) => item.id == menu.id);
+    if (index != -1) {
+      menu.quantity = menu.quantity - 1;
+      selectedMenuList[index].quantity = menu.quantity;
+      if (menu.quantity < 1) {
+        selectedMenuList.remove(menu);
+      }
     }
+
     selectedMenuList.refresh();
     currentList?.refresh();
     specificFunc?.call();

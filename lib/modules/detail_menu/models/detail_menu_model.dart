@@ -87,4 +87,23 @@ class ToppingMenu {
         "menu_id": menuId,
         "topping_id": toppingId,
       };
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) return true;
+    return other is ToppingMenu &&
+        other.id == id &&
+        other.name == name &&
+        other.price == price &&
+        other.menuId == menuId &&
+        other.toppingId == toppingId;
+  }
+
+  @override
+  int get hashCode =>
+      id.hashCode ^
+      name.hashCode ^
+      price.hashCode ^
+      menuId.hashCode ^
+      toppingId.hashCode;
 }

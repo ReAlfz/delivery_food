@@ -3,6 +3,8 @@ import 'package:delivery_food/modules/auth/bindings/login_binding.dart';
 import 'package:delivery_food/modules/auth/bindings/register_binding.dart';
 import 'package:delivery_food/modules/auth/view/login_view.dart';
 import 'package:delivery_food/modules/auth/view/register_view.dart';
+import 'package:delivery_food/modules/checkout/bindings/checkout_binding.dart';
+import 'package:delivery_food/modules/checkout/view/checkout_view.dart';
 import 'package:delivery_food/modules/dashboard/bindings/dashboard_binding.dart';
 import 'package:delivery_food/modules/dashboard/view/dashboard_view.dart';
 import 'package:delivery_food/modules/detail_menu/bindings/detail_menu_binding.dart';
@@ -38,12 +40,16 @@ class AppPages {
         page: () => const DashboardView(),
         binding: DashboardBinding(),
       ),
-
       GetPage(
         name: AppRoutes.detailMenuView,
         page: () => const DetailMenuView(),
         binding: DetailMenuBinding(),
-      )
+      ),
+      GetPage(
+        name: AppRoutes.checkoutView,
+        page: () => const CheckoutView(),
+        binding: CheckoutBinding(),
+      ),
     ];
   }
 }
