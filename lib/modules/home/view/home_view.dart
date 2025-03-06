@@ -21,9 +21,7 @@ class HomeView extends StatelessWidget {
     return GestureDetector(
       onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
       child: Scaffold(
-        appBar: SearchAppbarWidget(
-          onChanged: (value) {},
-        ),
+        appBar: const SearchAppbarWidget(enable: false),
         body: Padding(
           padding: EdgeInsets.symmetric(horizontal: 10.w),
           child: SmartRefresher(
@@ -120,7 +118,7 @@ class HomeView extends StatelessWidget {
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(16.r),
               ),
-              onPressed: () {},
+              onPressed: homeController.goToCheckout,
               child: const Icon(
                 Icons.shopping_cart_outlined,
               ),

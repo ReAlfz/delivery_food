@@ -1,66 +1,106 @@
 import 'package:delivery_food/constants/app_color.dart';
 import 'package:delivery_food/constants/app_style.dart';
+import 'package:delivery_food/modules/home/controllers/home_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 
 class SearchAppbarWidget extends StatelessWidget
     implements PreferredSizeWidget {
-  final ValueChanged<String>? onChanged;
+  final bool enable;
+  final ValueChanged<String>? changed;
   const SearchAppbarWidget({
     super.key,
-    this.onChanged,
+    required this.enable,
+    this.changed,
   });
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: double.infinity,
-      padding: EdgeInsets.symmetric(
-        horizontal: 16.w,
-        vertical: 8.h,
-      ),
-      decoration: BoxDecoration(
-        color: AppColor.whiteColor,
-        borderRadius: BorderRadius.vertical(
-          bottom: Radius.circular(16.r),
-        ),
-        boxShadow: const [
-          BoxShadow(
-            color: Color.fromARGB(111, 24, 24, 24),
-            blurRadius: 15,
-            spreadRadius: -1,
-            offset: Offset(0, -1),
+    return GestureDetector(
+      onTap: HomeController.to.goToSearch,
+      child: SafeArea(
+        child: Container(
+          width: double.infinity,
+          padding: EdgeInsets.symmetric(
+            horizontal: 16.w,
+            vertical: 8.h,
           ),
-        ],
-      ),
-      child: TextField(
-        onChanged: onChanged,
-        style: AppStyle.f12TextW500Black,
-        decoration: InputDecoration(
-          hintText: 'Search Menu',
-          isDense: true,
-          contentPadding: EdgeInsets.symmetric(horizontal: 8.w),
-          enabledBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(16.r),
-            borderSide: const BorderSide(
-              color: Colors.grey,
-              width: 1.5,
+          decoration: BoxDecoration(
+            color: AppColor.whiteColor,
+            borderRadius: BorderRadius.vertical(
+              bottom: Radius.circular(16.r),
             ),
+            boxShadow: const [
+              BoxShadow(
+                color: Color.fromARGB(111, 24, 24, 24),
+                blurRadius: 15,
+                spreadRadius: -1,
+                offset: Offset(0, -1),
+              ),
+            ],
           ),
-          focusedBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(16.r),
-            borderSide: const BorderSide(
-              color: AppColor.primaryColor,
-              width: 1.5,
-            ),
-          ),
-          prefixIcon: Icon(
-            Icons.search,
-            size: 26.r,
-            color: Colors.grey,
-          ),
-          hintStyle: AppStyle.f12TextW500Black.copyWith(
-            color: Colors.grey,
+          child: Row(
+            children: [
+              if (enable) ...[
+                InkWell(
+                  onTap: Get.back,
+                  child: Icon(
+                    Icons.chevron_left_rounded,
+                    color: AppColor.blackColor1F1F1F,
+                    size: 28.r,
+                  ),
+                ),
+                8.horizontalSpace,
+              ],
+              Expanded(
+                child: Hero(
+                  tag: 'search_input',
+                  child: Material(
+                    color: Colors.transparent,
+                    child: TextField(
+                      style: AppStyle.f12TextW500Black,
+                      enabled: enable,
+                      onChanged: changed,
+                      decoration: InputDecoration(
+                        hintText: 'Search Menu',
+                        isDense: true,
+                        contentPadding: EdgeInsets.symmetric(horizontal: 8.w),
+                        enabledBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(16.r),
+                          borderSide: const BorderSide(
+                            color: Colors.grey,
+                            width: 1.5,
+                          ),
+                        ),
+                        focusedBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(16.r),
+                          borderSide: const BorderSide(
+                            color: AppColor.primaryColor,
+                            width: 1.5,
+                          ),
+                        ),
+                        disabledBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(16.r),
+                          borderSide: const BorderSide(
+                            color: Colors.grey,
+                            width: 1.5,
+                          ),
+                        ),
+                        prefixIcon: Icon(
+                          Icons.search,
+                          size: 26.r,
+                          color: Colors.grey,
+                        ),
+                        hintStyle: AppStyle.f12TextW500Black.copyWith(
+                          color: Colors.grey,
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            ],
           ),
         ),
       ),

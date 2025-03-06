@@ -16,20 +16,14 @@ class DashboardView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Obx(() {
-        return Padding(
-          padding: EdgeInsets.only(
-            top: MediaQuery.of(context).viewPadding.top,
-            bottom: MediaQuery.of(context).viewPadding.bottom,
-          ),
-          child: IndexedStack(
-            sizing: StackFit.expand,
-            index: DashboardController.to.index.value,
-            children: const [
-              HomeView(),
-              OrderView(),
-              ProfileView(),
-            ],
-          ),
+        return IndexedStack(
+          sizing: StackFit.expand,
+          index: DashboardController.to.index.value,
+          children: const [
+            HomeView(),
+            OrderView(),
+            ProfileView(),
+          ],
         );
       }),
       bottomNavigationBar: BottomAppBar(
