@@ -1,5 +1,8 @@
+// ignore_for_file: invalid_use_of_protected_member
+
 import 'package:delivery_food/config/route.dart';
 import 'package:delivery_food/helper/global_controller.dart';
+import 'package:delivery_food/helper/services/debouncer.dart';
 import 'package:delivery_food/modules/home/models/menu_model.dart';
 import 'package:delivery_food/modules/home/models/voucher_model.dart';
 import 'package:delivery_food/modules/home/repositories/home_repository.dart';
@@ -9,7 +12,7 @@ import 'package:pull_to_refresh_flutter3/pull_to_refresh_flutter3.dart';
 
 class HomeController extends GetxController {
   static HomeController get to => Get.find();
-
+  var debouncer = Debouncer(delay: const Duration(milliseconds: 500));
   var isLoading = RxBool(false);
   RxList<VoucherModel> listVoucher = RxList.empty();
 
@@ -85,6 +88,16 @@ class HomeController extends GetxController {
 
     if (homeData.status == 200) {
       categoryList[currentCategory.value]?.value = homeData.data!;
+      for (var selectMenu in GlobalController.to.selectedMenuList) {
+        int index = categoryList[currentCategory.value]
+                ?.value
+                .indexWhere((item) => item.id == selectMenu.id) ??
+            -1;
+        if (index != -1) {
+          categoryList[currentCategory.value]?.value[index].quantity =
+              selectMenu.quantity;
+        }
+      }
       refreshController.refreshCompleted();
       refreshController.loadComplete();
     } else if (homeData.status == 401) {
@@ -141,4 +154,28 @@ class HomeController extends GetxController {
         AppRoutes.detailMenuView,
         arguments: id,
       );
+
+  RxList<MenuModel> searchList = RxList.empty();
+  void onSearch(String value) {
+    if (value.length > 2) {
+      debouncer.call(() async {
+        var searchData = await HomeRepository.getMenuSearch(keyword: value);
+        if (searchData.status == 200) {
+          searchList.value = searchData.data ?? [];
+        } else if (searchData.status == 401) {
+          GlobalController.to.expiredTokenHandler();
+        } else if (searchData.status == 403) {
+          searchList.value = [];
+        }
+      });
+    } else {
+      searchList.value = [];
+    }
+  }
+
+  @override
+  void onClose() {
+    debouncer.dispose();
+    super.onClose();
+  }
 }

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api\V1;
 
 use App\Http\Controllers\Controller;
 use App\Models\Menu;
+use Illuminate\Http\Request;
 
 class MenuController extends Controller
 {
@@ -73,6 +74,34 @@ class MenuController extends Controller
                     'image' => $menu->image,
                     'topping_menu' => $resultMenu
                 ],
+            ], 200);
+        } catch (\Exception $ex) {
+            return response()->json([
+                'status' => 403,
+                'message' => 'Exception error',
+                'errors' => $ex->getMessage(),
+            ], 200);
+        }
+    }
+
+    public function searchMenuByKeyword(Request $request)
+    {
+        try {
+            $request->validate(['keyword' => 'required|string|min:3']);
+            $keyword = $request->keyword;
+            $menu = Menu::whereRaw('LOWER(name) LIKE ?', ['%' . strtolower($keyword) . '%'])->get();
+
+            if ($menu->isEmpty()) {
+                return response()->json([
+                    'status' => 403,
+                    'message' => 'Search data not found',
+                ], 200);
+            }
+
+            return response()->json([
+                'status' => 200,
+                'message' => 'Successfuly get data',
+                'data' => $menu,
             ], 200);
         } catch (\Exception $ex) {
             return response()->json([

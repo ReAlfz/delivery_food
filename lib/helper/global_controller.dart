@@ -55,9 +55,8 @@ class GlobalController extends GetxController {
     if (index != -1) {
       menu.quantity = menu.quantity - 1;
       selectedMenuList[index].quantity = menu.quantity;
-      if (menu.quantity < 1) {
-        selectedMenuList.remove(menu);
-      }
+
+      if (menu.quantity == 0) selectedMenuList.removeAt(index);
     }
 
     selectedMenuList.refresh();

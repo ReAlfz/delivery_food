@@ -39,4 +39,20 @@ class HomeRepository {
       );
     }
   }
+
+  static Future<HomeResponse> getMenuSearch({required String keyword}) async {
+    String token = "Bearer ${GlobalController.to.auth.value!.accessToken}";
+    final url = '/menu/search?keyword=$keyword';
+    final dio = DioServices.call(authorization: token);
+
+    try {
+      final response = await dio.get(url);
+      Map<String, dynamic> responseData = response.data;
+      return HomeResponse.fromJson(responseData);
+    } on DioException catch (ex) {
+      return HomeResponse(
+        status: ex.response?.statusCode ?? 0,
+      );
+    }
+  }
 }

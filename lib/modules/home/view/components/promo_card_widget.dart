@@ -11,12 +11,14 @@ class PromoCardWidget extends StatelessWidget {
   final VoidCallback? onTap;
   final VoucherModel voucher;
   final double? witdh;
+  final double? height;
   const PromoCardWidget({
     super.key,
     required this.voucher,
     this.enableShadow,
     this.onTap,
     this.witdh,
+    this.height,
   });
 
   @override
@@ -27,7 +29,7 @@ class PromoCardWidget extends StatelessWidget {
       child: Container(
         margin: EdgeInsets.symmetric(vertical: 8.h),
         width: witdh ?? 300.w,
-        height: 180.h,
+        height: height ?? 180.h,
         decoration: BoxDecoration(
           color: AppColor.mintColor,
           borderRadius: BorderRadius.circular(16.r),

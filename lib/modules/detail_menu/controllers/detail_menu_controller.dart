@@ -1,6 +1,3 @@
-import 'dart:convert';
-import 'dart:developer';
-
 import 'package:delivery_food/helper/global_controller.dart';
 import 'package:delivery_food/modules/detail_menu/models/detail_menu_model.dart';
 import 'package:delivery_food/modules/detail_menu/repositories/detail_menu_repository.dart';
@@ -13,7 +10,7 @@ import 'package:get/get.dart';
 
 class DetailMenuController extends GetxController {
   static DetailMenuController get to => Get.find();
-  RxList<ToppingMenu> selectedTopping = RxList.empty();
+  RxList<dynamic> selectedTopping = RxList.empty();
   var isLoading = RxBool(false);
   var detailMenu = Rxn<MenuModel>();
   var noteTextController = TextEditingController();
@@ -77,11 +74,5 @@ class DetailMenuController extends GetxController {
     }
   }
 
-  bool getSelected(ToppingMenu topping) {
-    var check = selectedTopping.contains(topping);
-    log(check.toString(), name: 'debug');
-    log(jsonEncode(selectedTopping), name: 'debug');
-    log(jsonEncode(topping), name: 'debug');
-    return check;
-  }
+  bool getSelected(ToppingMenu topping) => selectedTopping.contains(topping);
 }

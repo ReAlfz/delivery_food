@@ -17,7 +17,7 @@ class DetailMenuView extends StatelessWidget {
     return PopScope(
       canPop: true,
       onPopInvokedWithResult: (didPop, result) {
-        detailMenuController.addToCart();
+        if (didPop) detailMenuController.addToCart();
       },
       child: Scaffold(
         resizeToAvoidBottomInset: false,

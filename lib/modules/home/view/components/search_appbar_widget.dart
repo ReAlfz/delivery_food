@@ -8,17 +8,17 @@ import 'package:get/get.dart';
 class SearchAppbarWidget extends StatelessWidget
     implements PreferredSizeWidget {
   final bool enable;
-  final ValueChanged<String>? changed;
+  final FocusNode? focusNode;
   const SearchAppbarWidget({
     super.key,
     required this.enable,
-    this.changed,
+    this.focusNode,
   });
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: HomeController.to.goToSearch,
+      onTap: (!enable) ? HomeController.to.goToSearch : null,
       child: SafeArea(
         child: Container(
           width: double.infinity,
@@ -44,10 +44,13 @@ class SearchAppbarWidget extends StatelessWidget
             children: [
               if (enable) ...[
                 InkWell(
-                  onTap: Get.back,
+                  onTap: () {
+                    HomeController.to.searchList.clear();
+                    Get.back();
+                  },
                   child: Icon(
                     Icons.chevron_left_rounded,
-                    color: AppColor.blackColor1F1F1F,
+                    color: AppColor.primaryColor,
                     size: 28.r,
                   ),
                 ),
@@ -61,15 +64,18 @@ class SearchAppbarWidget extends StatelessWidget
                     child: TextField(
                       style: AppStyle.f12TextW500Black,
                       enabled: enable,
-                      onChanged: changed,
+                      onChanged: HomeController.to.onSearch,
+                      focusNode: focusNode,
+                      textInputAction: TextInputAction.search,
                       decoration: InputDecoration(
                         hintText: 'Search Menu',
                         isDense: true,
-                        contentPadding: EdgeInsets.symmetric(horizontal: 8.w),
+                        maintainHintHeight: true,
+                        contentPadding: EdgeInsets.symmetric(horizontal: 16.w),
                         enabledBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(16.r),
                           borderSide: const BorderSide(
-                            color: Colors.grey,
+                            color: AppColor.primaryColor,
                             width: 1.5,
                           ),
                         ),
@@ -87,11 +93,28 @@ class SearchAppbarWidget extends StatelessWidget
                             width: 1.5,
                           ),
                         ),
-                        prefixIcon: Icon(
-                          Icons.search,
-                          size: 26.r,
-                          color: Colors.grey,
-                        ),
+                        suffixIcon: (enable)
+                            ? Container(
+                                decoration: BoxDecoration(
+                                  color: AppColor.primaryColor,
+                                  borderRadius: BorderRadius.horizontal(
+                                    right: Radius.circular(16.r),
+                                  ),
+                                ),
+                                child: Icon(
+                                  Icons.search,
+                                  size: 26.r,
+                                  color: Colors.white,
+                                ),
+                              )
+                            : null,
+                        prefixIcon: (!enable)
+                            ? Icon(
+                                Icons.search,
+                                size: 26.r,
+                                color: Colors.grey,
+                              )
+                            : null,
                         hintStyle: AppStyle.f12TextW500Black.copyWith(
                           color: Colors.grey,
                         ),

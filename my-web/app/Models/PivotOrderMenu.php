@@ -12,6 +12,7 @@ class PivotOrderMenu extends Model
         'order_id',
         'menu_id',
         'quantity',
+        'note',
         'topping',
     ];
 
