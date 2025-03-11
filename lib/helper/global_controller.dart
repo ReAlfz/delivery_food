@@ -2,7 +2,7 @@ import 'package:delivery_food/config/route.dart';
 import 'package:delivery_food/helper/services/hive_services.dart';
 import 'package:delivery_food/helper/widgets/message_widget.dart';
 import 'package:delivery_food/modules/auth/models/user_model.dart';
-import 'package:delivery_food/modules/home/models/menu_model.dart';
+import 'package:delivery_food/modules/menu/list_menu/models/menu_model.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 

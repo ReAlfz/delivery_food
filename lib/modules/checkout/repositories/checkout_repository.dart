@@ -2,7 +2,7 @@ import 'dart:developer';
 
 import 'package:delivery_food/helper/global_controller.dart';
 import 'package:delivery_food/helper/services/dio_services.dart';
-import 'package:delivery_food/modules/home/models/menu_model.dart';
+import 'package:delivery_food/modules/menu/list_menu/models/menu_model.dart';
 import 'package:dio/dio.dart';
 
 class CheckoutRepository {

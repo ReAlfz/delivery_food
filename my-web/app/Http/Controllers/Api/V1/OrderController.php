@@ -11,35 +11,110 @@ use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
+use function PHPUnit\Framework\isEmpty;
+
 class OrderController extends Controller
 {
-    public function order($user_id)
+    public function orderOnGoing($user_id, $page)
     {
         try {
             $order = Order::with(['getMenuForOrder.getDataMenuForOrder'])
                 ->where('user_id', $user_id)
-                ->get();
+                ->whereIn('status', [1, 2])
+                ->paginate(5, ['*'], 'page', $page);
+
+            if ($order->isEmpty()) {
+                return response()->json([
+                    'status' => 403,
+                    'message' => 'Order ongoing is empty',
+                ], 200);
+            }
+
+            if ($page > $order->lastPage()) {
+                return response()->json([
+                    'status' => 204,
+                    'message' => 'No More Data',
+                    'page' => $order->lastPage(),
+                ], 200);
+            }
 
             $allData = $order->map(function ($orderData) {
-                $menu = $orderData->getMenuForOrder->map(function ($menuData) {
-                    return [
-                        'id' => $menuData->getDataMenuForOrder->id,
-                        'name' => $menuData->getDataMenuForOrder->name,
-                        'category' => $menuData->getDataMenuForOrder->category,
-                        'price' => $menuData->getDataMenuForOrder->price,
-                        'quantity' => $menuData->quantity,
-                        'image' => $menuData->getDataMenuForOrder->image,
-                        'topping' => json_decode($menuData->topping),
-                    ];
-                });
-
                 return [
                     'id' => $orderData->id,
                     'no_receipt' => $orderData->no_receipt,
                     'total_price' => $orderData->total_price,
                     'date' => $orderData->date,
                     'status' => $orderData->status,
-                    'menu' => $menu,
+                    'menu' => $orderData->getMenuForOrder->map(function ($menuData) {
+                        return [
+                            'id' => $menuData->getDataMenuForOrder->id,
+                            'name' => $menuData->getDataMenuForOrder->name,
+                            'category' => $menuData->getDataMenuForOrder->category,
+                            'price' => $menuData->getDataMenuForOrder->price,
+                            'quantity' => $menuData->quantity,
+                            'image' => $menuData->getDataMenuForOrder->image,
+                            'topping' => json_decode($menuData->topping),
+                        ];
+                    }),
+                ];
+            });
+
+            return response()->json([
+                'status' => 200,
+                'message' => 'successfuly get data',
+                'page' => $order->currentPage(),
+                'data' => $allData,
+            ], 200);
+        } catch (\Exception $ex) {
+            return response()->json([
+                'status' => 403,
+                'message' => 'Errors in Exception',
+                'errors' => $ex->getMessage(),
+            ], 200);
+        }
+    }
+
+    public function orderOnHistory($user_id, $page)
+    {
+        try {
+            $order = Order::with(['getMenuForOrder.getDataMenuForOrder'])
+                ->where('user_id', $user_id)
+                ->whereIn('status', [3, 4])
+                ->paginate(5, ['*'], 'page', $page);
+
+            if ($order->isEmpty()) {
+                return response()->json([
+                    'status' => 403,
+                    'message' => 'Order history is empty',
+                ], 200);
+            }
+
+            if ($page > $order->lastPage()) {
+                return response()->json([
+                    'status' => 204,
+                    'message' => 'No More Data',
+                    'page' => $order->lastPage(),
+                ], 200);
+            }
+
+            $allData = $order->map(function ($orderData) {
+                return [
+                    'id' => $orderData->id,
+                    'no_receipt' => $orderData->no_receipt,
+                    'total_price' => $orderData->total_price,
+                    'date' => $orderData->date,
+                    'status' => $orderData->status,
+                    'menu' => $orderData->getMenuForOrder->map(function ($menuData) {
+                        return [
+                            'id' => $menuData->getDataMenuForOrder->id,
+                            'name' => $menuData->getDataMenuForOrder->name,
+                            'category' => $menuData->getDataMenuForOrder->category,
+                            'price' => $menuData->getDataMenuForOrder->price,
+                            'quantity' => $menuData->quantity,
+                            'image' => $menuData->getDataMenuForOrder->image,
+                            'topping' => json_decode($menuData->topping),
+                        ];
+                    }),
                 ];
             });
 

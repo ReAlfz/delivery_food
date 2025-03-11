@@ -1,7 +1,7 @@
 import 'package:delivery_food/helper/global_controller.dart';
 import 'package:delivery_food/modules/checkout/repositories/checkout_repository.dart';
 import 'package:delivery_food/modules/checkout/view/components/voucher_sheet.dart';
-import 'package:delivery_food/modules/home/models/voucher_model.dart';
+import 'package:delivery_food/modules/menu/list_menu/models/voucher_model.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 

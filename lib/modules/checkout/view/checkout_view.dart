@@ -1,8 +1,8 @@
 import 'package:delivery_food/helper/global_controller.dart';
 import 'package:delivery_food/helper/widgets/custom_appbar.dart';
 import 'package:delivery_food/modules/checkout/view/components/detail_transaction_widget.dart';
-import 'package:delivery_food/modules/home/controllers/home_controller.dart';
-import 'package:delivery_food/modules/home/view/components/menu_card_widget.dart';
+import 'package:delivery_food/modules/menu/list_menu/controllers/menu_controller.dart';
+import 'package:delivery_food/modules/menu/list_menu/view/components/menu_card_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';

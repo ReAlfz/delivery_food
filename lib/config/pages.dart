@@ -7,9 +7,9 @@ import 'package:delivery_food/modules/checkout/bindings/checkout_binding.dart';
 import 'package:delivery_food/modules/checkout/view/checkout_view.dart';
 import 'package:delivery_food/modules/dashboard/bindings/dashboard_binding.dart';
 import 'package:delivery_food/modules/dashboard/view/dashboard_view.dart';
-import 'package:delivery_food/modules/detail_menu/bindings/detail_menu_binding.dart';
-import 'package:delivery_food/modules/detail_menu/view/detail_menu_view.dart';
-import 'package:delivery_food/modules/home/view/search_view.dart';
+import 'package:delivery_food/modules/menu/detail_menu/bindings/detail_menu_binding.dart';
+import 'package:delivery_food/modules/menu/detail_menu/view/detail_menu_view.dart';
+import 'package:delivery_food/modules/menu/list_menu/view/search_view.dart';
 import 'package:delivery_food/modules/splash_screen/splash_view.dart';
 import 'package:get/get.dart';
 

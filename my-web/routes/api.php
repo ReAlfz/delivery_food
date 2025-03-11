@@ -19,7 +19,8 @@ Route::prefix('v1')->group(function () {
         });
         Route::prefix('order')->group(function () {
             Route::post('/add', [OrderController::class, 'createOrder']);
-            Route::get('/{id}', [OrderController::class, 'order']);
+            Route::get('/ongoing/{id}/{page}', [OrderController::class, 'orderOnGoing']);
+            Route::get('/history/{id}/{page}', [OrderController::class, 'orderOnHistory']);
             Route::get('/detail/{id}', [OrderController::class, 'detailOrder']);
         });
     });
