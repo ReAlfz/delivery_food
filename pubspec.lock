@@ -267,6 +267,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "3.4.1"
+  flutter_conditional:
+    dependency: "direct main"
+    description:
+      name: flutter_conditional
+      sha256: a41559ae0599aba6dbe916f85fa8ccc83907ce2782d19a08c51066116401d4e9
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.1.0+2"
   flutter_flavor:
     dependency: "direct main"
     description:

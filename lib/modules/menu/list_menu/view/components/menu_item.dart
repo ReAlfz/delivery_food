@@ -7,12 +7,12 @@ import 'package:delivery_food/modules/menu/list_menu/models/menu_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-class MenuCardWidget extends StatelessWidget {
+class MenuItem extends StatelessWidget {
   final MenuModel menu;
   final VoidCallback? onTap;
   final VoidCallback? onIncrement;
   final VoidCallback? onDecrement;
-  const MenuCardWidget({
+  const MenuItem({
     super.key,
     required this.menu,
     this.onTap,

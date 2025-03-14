@@ -111,15 +111,21 @@ class UserModel extends HiveObject {
   @HiveField(1)
   String? phone;
   @HiveField(2)
-  DateTime? updatedAt;
+  String? pin;
   @HiveField(3)
-  DateTime? createdAt;
+  String? image;
   @HiveField(4)
+  DateTime? updatedAt;
+  @HiveField(5)
+  DateTime? createdAt;
+  @HiveField(6)
   int? id;
 
   UserModel({
     this.username,
     this.phone,
+    this.pin,
+    this.image,
     this.updatedAt,
     this.createdAt,
     this.id,
@@ -128,6 +134,8 @@ class UserModel extends HiveObject {
   UserModel copyWith({
     String? username,
     String? phone,
+    String? pin,
+    String? image,
     DateTime? updatedAt,
     DateTime? createdAt,
     int? id,
@@ -137,6 +145,8 @@ class UserModel extends HiveObject {
         phone: phone ?? this.phone,
         updatedAt: updatedAt ?? this.updatedAt,
         createdAt: createdAt ?? this.createdAt,
+        pin: pin ?? this.pin,
+        image: image ?? this.image,
         id: id ?? this.id,
       );
 
@@ -150,11 +160,15 @@ class UserModel extends HiveObject {
             ? null
             : DateTime.parse(json["created_at"]),
         id: json["id"],
+        pin: json["pin"],
+        image: json["image"],
       );
 
   Map<String, dynamic> toJson() => {
         "username": username,
         "phone": phone,
+        "pin": pin,
+        "image": image,
         "updated_at": updatedAt?.toIso8601String(),
         "created_at": createdAt?.toIso8601String(),
         "id": id,

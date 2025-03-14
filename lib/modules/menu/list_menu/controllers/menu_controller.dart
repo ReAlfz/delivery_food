@@ -23,8 +23,6 @@ class HomeController extends GetxController {
     'Snacks': RxBool(true),
   };
 
-  RxList<MenuModel> get currentList =>
-      categoryList[currentCategory.value] ?? RxList.empty();
   Map<String, RxList<MenuModel>> categoryList = {
     'Foods': RxList<MenuModel>.empty(),
     'Drinks': RxList<MenuModel>.empty(),
@@ -147,7 +145,9 @@ class HomeController extends GetxController {
     refreshController.resetNoData();
   }
 
-  bool loadMoreStatus() => canLoadMore[currentCategory.value]!.value;
+  bool get loadMoreStatus => canLoadMore[currentCategory.value]!.value;
+  RxList<MenuModel> get currentList =>
+      categoryList[currentCategory.value] ?? RxList.empty();
   void goToSearch() => Get.toNamed(AppRoutes.searchView);
   void goToCheckout() => Get.toNamed(AppRoutes.checkoutView);
   void goToDetail(int id) => Get.toNamed(

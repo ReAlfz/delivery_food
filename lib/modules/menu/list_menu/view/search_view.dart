@@ -1,5 +1,5 @@
 import 'package:delivery_food/modules/menu/list_menu/controllers/menu_controller.dart';
-import 'package:delivery_food/modules/menu/list_menu/view/components/menu_card_widget.dart';
+import 'package:delivery_food/modules/menu/list_menu/view/components/menu_item.dart';
 import 'package:delivery_food/modules/menu/list_menu/view/components/search_appbar_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -55,7 +55,7 @@ class _SearchViewState extends State<SearchView> {
                 separatorBuilder: (context, index) => 8.verticalSpace,
                 itemBuilder: (context, index) {
                   final data = HomeController.to.searchList[index];
-                  return MenuCardWidget(menu: data);
+                  return MenuItem(menu: data);
                 },
               ),
             ),

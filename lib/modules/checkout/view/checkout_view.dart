@@ -2,7 +2,7 @@ import 'package:delivery_food/helper/global_controller.dart';
 import 'package:delivery_food/helper/widgets/custom_appbar.dart';
 import 'package:delivery_food/modules/checkout/view/components/detail_transaction_widget.dart';
 import 'package:delivery_food/modules/menu/list_menu/controllers/menu_controller.dart';
-import 'package:delivery_food/modules/menu/list_menu/view/components/menu_card_widget.dart';
+import 'package:delivery_food/modules/menu/list_menu/view/components/menu_item.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -26,7 +26,7 @@ class CheckoutView extends StatelessWidget {
             separatorBuilder: (context, index) => 8.verticalSpace,
             itemBuilder: (context, index) {
               var menu = globalController.selectedMenuList[index];
-              return MenuCardWidget(
+              return MenuItem(
                 menu: menu,
                 onIncrement: () => globalController.incrementQuantity(
                   menu: menu,

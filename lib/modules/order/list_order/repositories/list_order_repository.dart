@@ -9,7 +9,8 @@ class ListOrderRepository {
     required String endpoint,
   }) async {
     final token = 'Bearer ${GlobalController.to.auth.value?.accessToken}';
-    final url = "/order/$endpoint/$page";
+    final userId = GlobalController.to.auth.value?.users?.id;
+    final url = "/order/$endpoint/$userId/$page";
     final dio = DioServices.call(authorization: token);
 
     try {

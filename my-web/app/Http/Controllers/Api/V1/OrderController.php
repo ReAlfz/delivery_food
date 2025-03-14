@@ -21,20 +21,21 @@ class OrderController extends Controller
             $order = Order::with(['getMenuForOrder.getDataMenuForOrder'])
                 ->where('user_id', $user_id)
                 ->whereIn('status', [1, 2])
+                ->orderBy('id', 'desc')
                 ->paginate(5, ['*'], 'page', $page);
-
-            if ($order->isEmpty()) {
-                return response()->json([
-                    'status' => 403,
-                    'message' => 'Order ongoing is empty',
-                ], 200);
-            }
 
             if ($page > $order->lastPage()) {
                 return response()->json([
                     'status' => 204,
                     'message' => 'No More Data',
                     'page' => $order->lastPage(),
+                ], 200);
+            }
+
+            if ($order->isEmpty()) {
+                return response()->json([
+                    'status' => 403,
+                    'message' => 'Order ongoing is empty',
                 ], 200);
             }
 
@@ -74,26 +75,89 @@ class OrderController extends Controller
         }
     }
 
+    public function changeStatusOrder($order_id)
+    {
+        try {
+            $order = Order::find($order_id);
+
+            if ($order) {
+                if ($order->status < 3) {
+                    $order->status += 1;
+                    $order->save();
+
+                    return response()->json([
+                        'status' => 200,
+                        'message' => 'Order status updated successfully',
+                    ], 200);
+                } else {
+                    return response()->json([
+                        'status' => 404,
+                        'message' => 'Order already delivered',
+                    ], 404);
+                }
+            } else {
+                return response()->json([
+                    'status' => 404,
+                    'message' => 'Order not found',
+                ], 404);
+            }
+        } catch (\Exception $ex) {
+            return response()->json([
+                'status' => 403,
+                'message' => 'Errors in Exception',
+                'errors' => $ex->getMessage(),
+            ], 200);
+        }
+    }
+
+    public function cancelOrder($order_id)
+    {
+        try {
+            $order = Order::find($order_id);
+
+            if ($order) {
+                $order->status = 4;
+                $order->save();
+                return response()->json([
+                    'status' => 200,
+                    'message' => 'Order status updated successfully',
+                ], 200);
+            } else {
+                return response()->json([
+                    'status' => 404,
+                    'message' => 'Order not found',
+                ], 404);
+            }
+        } catch (\Exception $ex) {
+            return response()->json([
+                'status' => 403,
+                'message' => 'Errors in Exception',
+                'errors' => $ex->getMessage(),
+            ], 200);
+        }
+    }
+
     public function orderOnHistory($user_id, $page)
     {
         try {
             $order = Order::with(['getMenuForOrder.getDataMenuForOrder'])
                 ->where('user_id', $user_id)
                 ->whereIn('status', [3, 4])
+                ->orderBy('id', 'desc')
                 ->paginate(5, ['*'], 'page', $page);
-
-            if ($order->isEmpty()) {
-                return response()->json([
-                    'status' => 403,
-                    'message' => 'Order history is empty',
-                ], 200);
-            }
 
             if ($page > $order->lastPage()) {
                 return response()->json([
                     'status' => 204,
                     'message' => 'No More Data',
                     'page' => $order->lastPage(),
+                ], 200);
+            }
+
+            if ($order->isEmpty()) {
+                return response()->json([
+                    'status' => 403,
+                    'message' => 'Order history is empty',
                 ], 200);
             }
 

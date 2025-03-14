@@ -25,10 +25,14 @@ class ListOrderController extends GetxController {
     1: RxBool(true),
   };
 
+  bool get getLoadMoreStatus => canLoadmore[currentListOrderKey.value]!.value;
+  RxList<OrderModel> get getCurrentList =>
+      orderList[currentListOrderKey.value] ?? RxList.empty();
+
   @override
   void onInit() async {
-    fetching(selectedList: 0, endpoint: 'ongoing');
-    fetching(selectedList: 1, endpoint: 'history');
+    await fetching(selectedList: 0, endpoint: 'ongoing');
+    await fetching(selectedList: 1, endpoint: 'history');
     super.onInit();
   }
 

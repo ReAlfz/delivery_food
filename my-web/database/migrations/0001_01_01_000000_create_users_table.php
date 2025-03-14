@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('username');
             $table->string('phone', 16)->unique();;
             $table->string('password');
+            $table->string('image')->nullable();
             $table->integer('pin')->nullable();
             $table->string('address')->nullable();
             $table->rememberToken();
@@ -43,8 +44,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('users');
         Schema::dropIfExists('password_reset_tokens');
         Schema::dropIfExists('sessions');
+        Schema::dropIfExists('users');
     }
 };

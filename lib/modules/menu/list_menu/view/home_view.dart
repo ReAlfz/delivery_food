@@ -3,7 +3,7 @@ import 'package:delivery_food/constants/app_style.dart';
 import 'package:delivery_food/helper/global_controller.dart';
 import 'package:delivery_food/modules/menu/list_menu/controllers/menu_controller.dart';
 import 'package:delivery_food/modules/menu/list_menu/view/components/chip_widget.dart';
-import 'package:delivery_food/modules/menu/list_menu/view/components/menu_card_widget.dart';
+import 'package:delivery_food/modules/menu/list_menu/view/components/menu_item.dart';
 import 'package:delivery_food/modules/menu/list_menu/view/components/promo_card_widget.dart';
 import 'package:delivery_food/modules/menu/list_menu/view/components/search_appbar_widget.dart';
 import 'package:flutter/material.dart';
@@ -28,7 +28,7 @@ class HomeView extends StatelessWidget {
             controller: homeController.refreshController,
             onRefresh: homeController.refreshHome,
             onLoading: homeController.onLoadingHome,
-            enablePullUp: homeController.loadMoreStatus(),
+            enablePullUp: homeController.loadMoreStatus,
             enablePullDown: true,
             child: CustomScrollView(
               slivers: [
@@ -92,7 +92,7 @@ class HomeView extends StatelessWidget {
                     separatorBuilder: (context, index) => 8.verticalSpace,
                     itemBuilder: (context, index) {
                       var menu = homeController.currentList[index];
-                      return MenuCardWidget(
+                      return MenuItem(
                         menu: menu,
                         onTap: () => homeController.goToDetail(menu.id!),
                         onDecrement: () => globalController.decrementQuantity(

@@ -8,35 +8,34 @@ class ListOrderAppbar extends StatelessWidget implements PreferredSizeWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(
-        color: AppColor.whiteColor,
-        borderRadius: BorderRadius.vertical(
-          bottom: Radius.circular(16.r),
+    return SafeArea(
+      child: Container(
+        decoration: BoxDecoration(
+          color: AppColor.whiteColor,
+          borderRadius: BorderRadius.vertical(
+            bottom: Radius.circular(16.r),
+          ),
+          boxShadow: const [
+            BoxShadow(
+              color: Color.fromARGB(111, 24, 24, 24),
+              blurRadius: 15,
+              spreadRadius: -1,
+              offset: Offset(0, -1),
+            ),
+          ],
         ),
-        boxShadow: const [
-          BoxShadow(
-            color: Color.fromARGB(111, 24, 24, 24),
-            blurRadius: 15,
-            spreadRadius: -1,
-            offset: Offset(0, -1),
-          ),
-        ],
-      ),
-      child: TabBar(
-        indicatorWeight: 3.h,
-        labelColor: AppColor.primaryColor,
-        unselectedLabelColor: Colors.grey[400],
-        indicatorColor: AppColor.primaryColor,
-        labelStyle: AppStyle.f18TextW600Black,
-        tabs: const [
-          Tab(
-            text: 'On Going',
-          ),
-          Tab(
-            text: 'History',
-          ),
-        ],
+        child: TabBar(
+          indicatorWeight: 3.h,
+          indicatorPadding: EdgeInsets.symmetric(horizontal: 16.w),
+          labelColor: AppColor.primaryColor,
+          unselectedLabelColor: Colors.grey[400],
+          indicatorColor: AppColor.primaryColor,
+          labelStyle: AppStyle.f18TextW600Black,
+          tabs: const [
+            Tab(text: 'On Going'),
+            Tab(text: 'History'),
+          ],
+        ),
       ),
     );
   }
