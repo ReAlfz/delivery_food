@@ -1,7 +1,9 @@
+import 'package:delivery_food/config/route.dart';
 import 'package:delivery_food/helper/global_controller.dart';
 import 'package:delivery_food/modules/order/list_order/models/list_order_response.dart';
 import 'package:delivery_food/modules/order/list_order/repositories/list_order_repository.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 import 'package:pull_to_refresh_flutter3/pull_to_refresh_flutter3.dart';
 
 class ListOrderController extends GetxController {
@@ -42,7 +44,7 @@ class ListOrderController extends GetxController {
     currentPage[currentListOrderKey.value]?.value = 1;
 
     String endpoint = currentListOrderKey.value == 0 ? 'ongoing' : 'history';
-    var orderData = await ListOrderRepository.getOrder(
+    var orderData = await OrderRepository.getOrder(
       page: 1,
       endpoint: endpoint,
     );
@@ -63,7 +65,7 @@ class ListOrderController extends GetxController {
     currentPage[currentListOrderKey.value]?.value += 1;
 
     String endpoint = currentListOrderKey.value == 0 ? 'ongoing' : 'history';
-    var orderData = await ListOrderRepository.getOrder(
+    var orderData = await OrderRepository.getOrder(
       page: currentPage[currentListOrderKey.value]!.value,
       endpoint: endpoint,
     );
@@ -85,7 +87,7 @@ class ListOrderController extends GetxController {
     required String endpoint,
   }) async {
     isLoading.value = true;
-    var orderData = await ListOrderRepository.getOrder(
+    var orderData = await OrderRepository.getOrder(
       page: currentPage[selectedList]!.value,
       endpoint: endpoint,
     );
@@ -95,5 +97,13 @@ class ListOrderController extends GetxController {
       GlobalController.to.expiredTokenHandler();
     }
     isLoading.value = false;
+  }
+
+  String getDateFormat(DateTime date) {
+    return DateFormat('dd MMM yyyy').format(date);
+  }
+
+  void pushToDetail(int id) {
+    Get.toNamed(AppRoutes.detailOrderView, arguments: id);
   }
 }

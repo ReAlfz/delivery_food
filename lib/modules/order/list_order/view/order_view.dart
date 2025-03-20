@@ -14,8 +14,8 @@ class OrderView extends StatelessWidget {
       child: Scaffold(
         appBar: const ListOrderAppbar(),
         body: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 10.w),
-          child: TabBarView(
+          padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 16.h),
+          child: const TabBarView(
             children: [
               ListOrderWidget(),
               ListHistoryOrder(),

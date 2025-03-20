@@ -41,7 +41,8 @@ class TileOptionWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Material(
       color: Colors.transparent,
-      child: InkWell(
+      clipBehavior: Clip.antiAlias,
+      child: GestureDetector(
         onTap: onTap,
         child: Padding(
           padding: EdgeInsets.symmetric(vertical: 10.h),

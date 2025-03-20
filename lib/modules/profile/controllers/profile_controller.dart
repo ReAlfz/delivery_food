@@ -13,4 +13,6 @@ class ProfileController extends GetxController {
     auth.value = GlobalController.to.auth.value?.users;
     super.onInit();
   }
+
+  void change() => savingStatus.value = !savingStatus.value;
 }

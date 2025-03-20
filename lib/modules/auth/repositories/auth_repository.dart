@@ -43,7 +43,8 @@ class AuthRepository {
       Map<String, dynamic> responseData = response.data;
       return AuthModel.fromJson(responseData);
     } on DioException catch (ex) {
-      return AuthModel(errors: ex.response?.statusCode);
+      Map<String, dynamic> responseData = ex.response?.data;
+      return AuthModel.fromJson(responseData);
     }
   }
 }

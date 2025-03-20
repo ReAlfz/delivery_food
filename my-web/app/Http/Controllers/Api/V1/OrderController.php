@@ -20,7 +20,7 @@ class OrderController extends Controller
         try {
             $order = Order::with(['getMenuForOrder.getDataMenuForOrder'])
                 ->where('user_id', $user_id)
-                ->whereIn('status', [1, 2])
+                ->whereIn('status', [0, 1, 2])
                 ->orderBy('id', 'desc')
                 ->paginate(5, ['*'], 'page', $page);
 
@@ -201,10 +201,15 @@ class OrderController extends Controller
         try {
             $order = Order::with(['getMenuForOrder.getDataMenuForOrder'])
                 ->where('id', $order_id)
-                ->get();
+                ->first();
 
-            $allData = $order->map(function ($orderData) {
-                $menu = $orderData->getMenuForOrder->map(function ($menuData) {
+            $allData = [
+                'id' => $order->id,
+                'no_receipt' => $order->no_receipt,
+                'total_price' => $order->total_price,
+                'date' => $order->date,
+                'status' => $order->status,
+                'menu' => $order->getMenuForOrder->map(function ($menuData) {
                     return [
                         'id' => $menuData->getDataMenuForOrder->id,
                         'name' => $menuData->getDataMenuForOrder->name,
@@ -214,17 +219,8 @@ class OrderController extends Controller
                         'image' => $menuData->getDataMenuForOrder->image,
                         'topping' => json_decode($menuData->topping),
                     ];
-                });
-
-                return [
-                    'id' => $orderData->id,
-                    'no_receipt' => $orderData->no_receipt,
-                    'total_price' => $orderData->total_price,
-                    'date' => $orderData->date,
-                    'status' => $orderData->status,
-                    'menu' => $menu,
-                ];
-            });
+                }),
+            ];
 
             return response()->json([
                 'status' => 200,
@@ -269,7 +265,7 @@ class OrderController extends Controller
                 'no_receipt' => $no_receipt,
                 'total_price' => $request->total_price,
                 'date' => Carbon::now()->format('Y-m-d'),
-                'status' => 1,
+                'status' => 0,
             ]);
 
             $pivotData = [];

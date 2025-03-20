@@ -10,6 +10,8 @@ import 'package:delivery_food/modules/dashboard/view/dashboard_view.dart';
 import 'package:delivery_food/modules/menu/detail_menu/bindings/detail_menu_binding.dart';
 import 'package:delivery_food/modules/menu/detail_menu/view/detail_menu_view.dart';
 import 'package:delivery_food/modules/menu/list_menu/view/search_view.dart';
+import 'package:delivery_food/modules/order/detail_order/bindings/detail_order_binding.dart';
+import 'package:delivery_food/modules/order/detail_order/view/detail_order_view.dart';
 import 'package:delivery_food/modules/splash_screen/splash_view.dart';
 import 'package:get/get.dart';
 
@@ -58,6 +60,11 @@ class AppPages {
         name: AppRoutes.detailMenuView,
         page: () => const DetailMenuView(),
         binding: DetailMenuBinding(),
+      ),
+      GetPage(
+        name: AppRoutes.detailOrderView,
+        page: () => const DetailOrderView(),
+        binding: DetailOrderBinding(),
       ),
     ];
   }

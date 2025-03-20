@@ -47,12 +47,14 @@ class AuthModel {
   factory AuthModel.fromJson(Map<String, dynamic> json) => AuthModel(
         status: json["status"],
         accessToken: json["access_token"],
-        errors: _parseErrors(json['errors']),
+        errors: json['errors'] != null ? _parseErrors(json['errors']) : null,
         users: json["users"] == null ? null : UserModel.fromJson(json["users"]),
       );
 
   static dynamic _parseErrors(dynamic errors) {
-    if (errors is String) {
+    if (errors == null) {
+      return null;
+    } else if (errors is String) {
       return errors;
     } else if (errors is Map<String, dynamic>) {
       return Errors.fromJson(errors);
@@ -115,10 +117,12 @@ class UserModel extends HiveObject {
   @HiveField(3)
   String? image;
   @HiveField(4)
-  DateTime? updatedAt;
+  String? address;
   @HiveField(5)
-  DateTime? createdAt;
+  DateTime? updatedAt;
   @HiveField(6)
+  DateTime? createdAt;
+  @HiveField(7)
   int? id;
 
   UserModel({
@@ -126,6 +130,7 @@ class UserModel extends HiveObject {
     this.phone,
     this.pin,
     this.image,
+    this.address,
     this.updatedAt,
     this.createdAt,
     this.id,
@@ -136,6 +141,7 @@ class UserModel extends HiveObject {
     String? phone,
     String? pin,
     String? image,
+    String? address,
     DateTime? updatedAt,
     DateTime? createdAt,
     int? id,
@@ -146,6 +152,7 @@ class UserModel extends HiveObject {
         updatedAt: updatedAt ?? this.updatedAt,
         createdAt: createdAt ?? this.createdAt,
         pin: pin ?? this.pin,
+        address: address ?? this.address,
         image: image ?? this.image,
         id: id ?? this.id,
       );
@@ -153,6 +160,7 @@ class UserModel extends HiveObject {
   factory UserModel.fromJson(Map<String, dynamic> json) => UserModel(
         username: json["username"],
         phone: json["phone"],
+        address: json["address"],
         updatedAt: json["updated_at"] == null
             ? null
             : DateTime.parse(json["updated_at"]),
@@ -168,6 +176,7 @@ class UserModel extends HiveObject {
         "username": username,
         "phone": phone,
         "pin": pin,
+        "address": address,
         "image": image,
         "updated_at": updatedAt?.toIso8601String(),
         "created_at": createdAt?.toIso8601String(),

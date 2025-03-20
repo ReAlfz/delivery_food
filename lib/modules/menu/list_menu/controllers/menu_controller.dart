@@ -150,10 +150,9 @@ class HomeController extends GetxController {
       categoryList[currentCategory.value] ?? RxList.empty();
   void goToSearch() => Get.toNamed(AppRoutes.searchView);
   void goToCheckout() => Get.toNamed(AppRoutes.checkoutView);
-  void goToDetail(int id) => Get.toNamed(
-        AppRoutes.detailMenuView,
-        arguments: id,
-      );
+  void goToDetail(int id) {
+    Get.toNamed(AppRoutes.detailMenuView, arguments: id);
+  }
 
   RxList<MenuModel> searchList = RxList.empty();
   void onSearch(String value) {

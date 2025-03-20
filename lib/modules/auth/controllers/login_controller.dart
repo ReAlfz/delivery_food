@@ -2,6 +2,7 @@ import 'package:delivery_food/config/route.dart';
 import 'package:delivery_food/helper/global_controller.dart';
 import 'package:delivery_food/helper/services/hive_services.dart';
 import 'package:delivery_food/helper/widgets/loading_widget.dart';
+import 'package:delivery_food/helper/widgets/message_widget.dart';
 import 'package:delivery_food/modules/auth/repositories/auth_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -14,12 +15,9 @@ class LoginController extends GetxController {
   var phoneController = TextEditingController();
   var passwordController = TextEditingController();
 
-  var errorTexts = RxnString(null);
-
   void login() async {
     showLoading();
 
-    errorTexts.value = null;
     var isValid = fromKey.currentState!.validate();
     Get.focusScope!.unfocus();
 
@@ -34,9 +32,20 @@ class LoginController extends GetxController {
         HiveService.saveAuth(authData);
         GlobalController.to.auth.value = authData;
         Get.offAllNamed(AppRoutes.dashboardView);
+        return;
       }
 
-      errorTexts.value = authData.errors;
+      hideLoading();
+      Get.dialog(
+        Dialog(
+          backgroundColor: Colors.transparent,
+          child: MessageWidget(
+            text: authData.errors ?? '',
+            onTap: () => Get.back(),
+          ),
+        ),
+        barrierDismissible: true,
+      );
     }
   }
 
