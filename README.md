@@ -1,6 +1,6 @@
-# delivery_food
+# Food Rush
 
-A new Flutter project.
+FoodRush adalah aplikasi pengantaran makanan yang cepat dan intuitif yang dirancang untuk menawarkan pengalaman yang mulus kepada para pengguna dalam memesan makanan. Aplikasi ini memungkinkan pelanggan untuk melihat-lihat menu, melakukan pemesanan, dan menerima pengantaran tepat waktu, semuanya dari kenyamanan rumah mereka. FoodRush bertujuan untuk memberikan kenyamanan dan kecepatan, memastikan pengalaman yang memuaskan bagi pengguna dan mitra restoran.
 
 ## Getting Started
 
