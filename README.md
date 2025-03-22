@@ -1,16 +1,58 @@
 # Food Rush
 
-FoodRush adalah aplikasi pengantaran makanan yang cepat dan intuitif yang dirancang untuk menawarkan pengalaman yang mulus kepada para pengguna dalam memesan makanan. Aplikasi ini memungkinkan pelanggan untuk melihat-lihat menu, melakukan pemesanan, dan menerima pengantaran tepat waktu, semuanya dari kenyamanan rumah mereka. FoodRush bertujuan untuk memberikan kenyamanan dan kecepatan, memastikan pengalaman yang memuaskan bagi pengguna dan mitra restoran.
+FoodRush is a fast and intuitive food delivery application designed to offer users a seamless experience in ordering food. The app allows customers to browse menus, place orders, and receive timely deliveries, all from the comfort of their homes. FoodRush aims to deliver convenience and speed, ensuring a satisfying experience for both users and restaurant partners.
 
-## Getting Started
 
-This project is a starting point for a Flutter application.
+Flutter project that applies the MVC method with Getx and backend api using laravel 11 for database using postgreSQL.
 
-A few resources to get you started if this is your first Flutter project:
+## Preview aplication
+|Login View|RegisterView|
+|----------|------------|
+|![login view](images/login.png)|![register view](images/register.png)|
+|Home view|Detail Menu|
+|![home view](images/home.png)|![detail menu](images/detail_menu.png)|
+|Checkout view|History Order|
+|![checkout view](images/checkout.png)|![history order](images/history.png)|
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+## Setup
+first you have to create a laravel and flutter project, after that make flutter project to parent and laravel project to child like this :
+```
+food_rush/
+│
+├── android/
+│
+├── ios/
+│
+├── lib/
+│
+├── test/
+│
+├── web/
+│
+├── backend/
+│   ├── app/
+│   ├── bootstrap/
+│   ├── config/
+│   ├── database/
+│   ├── public/
+│   ├── resources/
+│   ├── routes/
+│   ├── storage/
+│   ├── tests/
+│   ├── vendor/
+│   ├── .env
+│   ├── artisan
+│   ├── composer.json
+│   ├── package.json
+│   ├── phpunit.xml
+│   ├── README.md
+```
+after that you have to make a api in laravel and connect to flutter, you can use postman to test your api, and then you can use flutter to connect to your api.
+
+note: 
+
+- Make sure you run php artisan serve to start your laravel server. for emulator you can use 10.0.2.2.
+- For database you can use mysql or sqlite, for this project i use postgresql.
+- This flutter use getx for state management. if you don't know how to use Getx, you can learn it from [Getx](https://pub.dev/packages/get).
+

@@ -22,6 +22,9 @@ Route::prefix('v1')->group(function () {
             Route::get('/detail/{id}', [OrderController::class, 'detailOrder']);
             Route::get('/ongoing/{id}/{page}', [OrderController::class, 'orderOnGoing']);
             Route::get('/history/{id}/{page}', [OrderController::class, 'orderOnHistory']);
+
+            Route::post('/update/{id}', [OrderController::class, 'changeStatusOrder']);
+            Route::post('/cancel/{id}', [OrderController::class, 'cancelOrder']);
         });
     });
 });

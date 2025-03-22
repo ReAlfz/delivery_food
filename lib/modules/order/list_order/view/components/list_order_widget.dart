@@ -36,10 +36,10 @@ class ListOrderWidget extends StatelessWidget {
                   borderRadius: BorderRadius.circular(8.r),
                   boxShadow: const [
                     BoxShadow(
-                      offset: Offset(0, 2),
-                      blurRadius: 8,
+                      color: Color.fromARGB(111, 24, 24, 24),
+                      blurRadius: 10,
                       spreadRadius: -1,
-                      color: Colors.black87,
+                      offset: Offset(0, 2),
                     ),
                   ],
                 ),

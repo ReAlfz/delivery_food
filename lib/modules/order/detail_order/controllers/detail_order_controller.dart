@@ -18,9 +18,11 @@ class DetailOrderController extends GetxController {
   }
 
   Future<void> fetchData() async {
+    status.value = false;
     var orderResponse = await DetailOrderRepository.getOrderDetail(id: orderId);
     if (orderResponse.status == 200) {
       orderData.value = orderResponse.data!;
+      status.value = true;
     } else if (orderResponse.status == 401) {
       GlobalController.to.expiredTokenHandler();
     }

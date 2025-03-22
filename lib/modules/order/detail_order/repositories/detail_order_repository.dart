@@ -6,7 +6,7 @@ import 'package:dio/dio.dart';
 class DetailOrderRepository {
   static Future<DetailOrderResponse> getOrderDetail({required int id}) async {
     final token = 'Bearer ${GlobalController.to.auth.value?.accessToken}';
-    final url = "order/detail/$id";
+    final url = "/order/detail/$id";
     final dio = DioServices.call(authorization: token);
 
     try {

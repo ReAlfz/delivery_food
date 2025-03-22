@@ -274,7 +274,7 @@ class OrderController extends Controller
                     'order_id' => $order->id,
                     'menu_id' => $menuItems['id_menu'],
                     'quantity' => $menuItems['quantity'],
-                    'note' => $menuItems['note'],
+                    'note' => isset($menuItems['note']) ? $menuItems['note'] : '',
                     'topping' => json_encode($menuItems['topping']),
                 ];
             }
